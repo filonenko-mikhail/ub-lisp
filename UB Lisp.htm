@@ -1,0 +1,3116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--
+(in-package :user)
+-->
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>UB Lisp</title>
+  </head>
+
+<body alink="#FF0000" bgcolor="#FFFFFF" link="blue" text="#000000" vlink="maroon">
+<font face="Arial, Helvetica, sans-serif">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody><tr align="left" bgcolor="#003366" valign="middle"> 
+    <th nowrap="nowrap" valign="top"> 
+      <div align="right">
+        <a href="http://www.buffalo.edu/">
+        <font color="#FFFFFF" face="Arial, Helvetica, sans-serif" size="2">
+        <i>UNIVERSITY AT BUFFALO - STATE UNIVERSITY OF NEW YORK</i>
+	</font></a></div>
+    </th>
+  </tr>
+  <tr align="right" valign="top"> 
+    <td nowrap="nowrap" valign="top">
+      <b>
+      <font color="#000000" face="Arial, Helvetica, sans-serif">
+      The Department of Computer Science &amp; Engineering</font><br>
+      <a href="http://www.cse.buffalo.edu/"><img src="UB%20Lisp_files/cselogo.htm" alt="cse@buffalo" align="top" border="0" height="82" width="256"></a>
+      </b>
+    </td>
+  </tr>
+</tbody></table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody><tr bgcolor="003366" valign="middle"> 
+    <td align="right" nowrap="nowrap" width="50%"> 
+      <div align="left">
+	<i><b><a href="http://www.cse.buffalo.edu/%7Eshapiro/"><font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size="4">STUART C. SHAPIRO</font></a><font color="#FFFFFF" face="Arial,Helvetica,sans-serif" size="4">: Lisp Short
+		    Course</font></b></i></div> 
+    </td>
+    <td align="right" width="50%"><img src="UB%20Lisp_files/blbinary.htm" align="absmiddle" height="25" width="150"></td>
+  </tr>
+</tbody></table>
+</font>
+<p>
+</p><center>
+<h1>A Short Course in Common Lisp<br>
+Summer, 2004<br>
+<a href="http://www.cse.buffalo.edu/%7Eshapiro/">Stuart C. Shapiro</a>
+&amp; <a href="http://www.cse.buffalo.edu/%7Edrpierce/">David R. Pierce</a>
+</h1>
+</center>
+<hr>
+<p></p><center>Copyright © 2004 by Stuart C. Shapiro &amp; David
+R. Pierce. All rights reserved.</center>
+
+<p>
+</p><dl>
+<dt>Meeting time and place:
+</dt><dd> MTh 10:30 - 11:30, Baldy 21
+
+<p></p></dd><dt>Syllabus
+</dt><dd>
+<ol>
+<li> Common Lisp Resources
+<ul>
+<li> <a href="http://www.franz.com/support/documentation/8.1/doc/">Index
+to all Allegro CL version 8.1 symbols</a>
+</li><li><a href="http://www.franz.com/support/documentation/8.1/ansicl/ansicl.htm">ANSI
+Common Lisp</a>
+</li><li>The <a href="http://www.lispworks.com/documentation/HyperSpec/Front/"><i>Common Lisp
+HyperSpec</i></a>
+
+</li><li> Stuart C. Shapiro, <a href="http://www.cse.buffalo.edu/%7Eshapiro/Commonlisp/"> <cite>Common
+Lisp: An Interactive Approach</cite></a>, W. H.  Freeman, New York,
+1992.
+
+</li><li>On-line <a href="http://www.cse.buffalo.edu/%7Eshapiro/Courses/CSE202/Notes/">Course
+Notes</a> from CSE202 of Fall 2000 to accompany the book <a href="http://www.cse.buffalo.edu/%7Eshapiro/Commonlisp/"> <cite>Common Lisp: An Interactive
+Approach</cite></a>.  (Note: this course is not currently operating)
+</li></ul>
+
+<p></p></li><li> Common Lisp Development Environment
+<dl>
+<dt> For file preparation, testing, and debugging:
+</dt><dd>
+<ul>
+<li><code>xemacs &amp;</code>
+</li><li>For sample initialization files see
+the directory
+<code>~shapiro/.xemacs/</code>, and, especially,
+		    <code>~shapiro/.xemacs/init-for-ac.el</code>.
+</li></ul>
+</dd><dt>For file preparation:
+</dt><dd>
+<ol>
+<li>Use a file extension of <code>.cl</code>
+</li><li>Use Common Lisp mode
+</li><li>See the Common Lisp mode commands by doing <code>C-h m</code>
+</li></ol>
+</dd><dt>For testing and debugging:
+</dt><dd>
+<ol>
+<li><code>M-x run-acl</code>
+</li><li>Answer all questions by entering <code>RET</code>
+</li><li>See the Inferior Common Lisp mode commands by doing <code>C-h m</code>
+</li></ol>
+</dd></dl>
+<p></p></li><li>Lisp Execution Style
+<ul>
+<li>Expression-oriented: Evaluate a series of expressions.
+</li><li>Optionally take input from a file, then from standard-input.
+</li><li>The Lisp Listener.
+</li><li>The read-eval-print loop.
+</li></ul>
+
+<p></p></li><li>Numbers Числа
+<ul>
+<li>A number is an atom that evaluates to itself. Числа являются атомами, которые вычисляются сами в себя.
+</li><li>Test read-eval-print loop<br> Попробуйте цикл чтение-выполнение-вывод
+Really: Ну правда, всё просто:
+<ol>
+<li>Read Чтение
+</li><li>Construct an object Создание объекта
+</li><li>Evaluate the object Выполнение объекта
+</li><li>Choose a printed representation Выбор текстового представления объекта
+</li><li>Print Вывод
+</li></ol>
+</li><li>Two surprises: Два сюрприза:
+<ol>
+<li>bignums большие числа (bignums)
+</li><li>ratios дроби (ratios)
+</li></ol>
+</li></ul>
+<p></p></li><li>Non-Atomic Expressions Не атомные выражения
+<ul>
+<li>Cambridge prefix notation Кембриджская префиксная нотация
+</li><li> See the HyperSpec section on <a href="http://www.lispworks.com/reference/HyperSpec/Body/12_aa.htm">Numeric Смотрите CLtL2ed раздел Числа
+Operations</a> Операции
+</li></ul>
+
+<p></p></li><li>(X)Emacs' <code>*scratch*</code> buffer is in Lisp Interaction mode<br>  (X)Emacs'овый буфер <code>*scratch* находится в режиме исполнения Лиспового кода</code><br>
+Type <code>C-j</code> after a Lisp form. Нажмите Ctrl-j после Лисповой формы.
+
+<p></p></li><li>Exiting:<br> Выход:
+<code>(exit)</code> or <code>:ex</code> to the Lisp Listener. (exit) или :ex в Лисповом режиме.
+
+<p></p></li><li>Booleans Булевы значения
+<ul>
+<li>Lisp's False is <code>nil</code>, an atom that evaluates to itself.<br> Лисповая Ложь это nil (пустой список) - атом, который вычисляется сам в себя.
+Try it. Попробуйте бесплатно без смс.
+<p></p></li><li>Lisp's True is <code>t</code>, an atom that evaluates to itself, Лисповая Истина это t (символ t) - атом, который вычисляется сам в себя. Любой другой Лисповый объект кроме nil, также является истиной.
+<i>and every other Lisp object except</i> <code>nil</code>.
+
+<p></p></li><li><a href="http://www.lispworks.com/reference/HyperSpec/Body/m_and.htm"><code>and</code></a> и (and)
+and <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_or.htm"><code>or</code></a> и или (or)
+are Lisp <a href="http://www.lispworks.com/reference/HyperSpec/Body/03_ababb.htm">macro</a>s являются Лисповыми макросами
+that take an arbitrary number of arguments, and do short-circuit которые принимают любое количество аргументов, и лениво их вычисляют
+evaluations.<br> Try them for different numbers of arguments.<br> Try
+them with zero arguments.<br> They return <code>t</code>,
+<code>nil</code>, or the value of the last expression evaluated under
+their control, <i>a theme in Lisp</i>.
+
+</li></ul>
+
+<p><font color="red">Exercise</font>: Start a file for Lisp source code.<br>
+For now, just put some comments at the top saying what it's for.
+
+</p><p></p></li><li>Comment Characters
+<blockquote>
+<table border="">
+<tbody><tr><td><code>;</code></td><td>Rest of line</td><td>In line after code</td></tr>
+<tr><td><code>;;</code></td><td>Entire line</td><td>Indent like code</td></tr>
+<tr><td><code>;;;</code></td><td>Entire line</td><td>Start in column 1</td></tr>
+<tr><td><code>#|...|#</code></td><td>Comment brackets</td><td>Use for
+		      commenting-out code</td></tr>
+</tbody></table>
+</blockquote>
+
+<p></p></li><li>Defining Functions
+<ul>
+
+<li>See the ANSI Common Lisp section on the <a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/defun.htm"><code>defun</code></a>
+macro
+
+<p></p></li><li>Example
+<blockquote>
+<pre>(defun average (x y)
+  "Returns the average of the numbers x and y."
+  ;; Doesn't round or truncate integers
+  (/ (+ x y) 2))
+</pre>
+</blockquote>
+
+<p></p></li><li>Variables have lexical scope.
+
+<p></p></li><li>Objects, not variables have type.
+<br>Try
+ <code>(type-of <i>n</i>)</code> for various numbers,
+		<code><i>n</i></code><br>
+
+<p></p></li><li>Load your file:<br>
+<code>(load "<i>file-name</i>")</code> to Listener<br>
+or <code>:ld <i>file-name</i></code> to Listener<br>
+or <code>:cl <i>file-name</i></code> to Listener<br>
+or <code>C-c C-b</code> in source file buffer<br>
+or <code>C-u C-c C-b</code> in source file buffer<br>
+
+<p>Then try:<br>
+<code>(average </code> and then pause and look at the minibuffer<br>
+<code>(average 5 7)</code><br>
+<code>(average 5 8)</code><br>
+<code>(float (average 5 8))</code>
+
+</p><p></p></li><li><font color="red">Exercise</font>: Define <code>(discrim a b c)</code> to return the
+		square root of <code>b<sup>2</sup> - 4ac</code><br>
+<code>(discrim 2 7 5)</code> should return <code>3.0</code>
+
+<p></p></li><li>Surprise: Lisp functions can return multiple values<br>
+Try <code>(floor 5.25)</code> and <code>(round 5.25)</code>
+<p></p></li><li>Example
+<blockquote>
+<pre>(defun +- (x d)
+  "Returns x+d and x-d."
+  (values (+ x d)
+	  (- x d)))
+</pre>
+</blockquote>
+
+<p>Try: <code>(values)</code>
+
+</p><p></p></li><li><font color="red">Exercise</font>: Using <code>discrim</code>, define <code>(quad-roots a b
+		c)</code> to return the two roots of the quadradic equation
+<blockquote>
+ax<sup>2</sup> + bx + c = 0
+</blockquote>
+namely, <code>(-b + sqrt(b<sup>2</sup> - 4ac))/2a</code>
+ and <code>(-b - sqrt(b<sup>2</sup> - 4ac))/2a</code><br><br>
+ <code>(quad-roots 2 7 5)</code>
+ should return <code>-1.0</code> and <code>-2.5</code>
+</li></ul>
+
+<p></p></li><li>Two-Branched Conditional
+<blockquote>
+
+<code>(<a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/if.htm">if</a>
+<i>test-form then-form [else-form]</i>)</code>
+
+<p>Note: <code>if</code> is a <a href="http://www.lispworks.com/reference/HyperSpec/Body/03_ababa.htm">special
+form</a>
+
+</p><p>Example:
+</p><pre>(defun fact (n)
+  "Returns the factorial of n."
+  (if (&lt;= n 0)
+      1
+    (* n (fact (1- n)))))
+</pre>
+
+<p><font color="red">Exercise</font>: Define <code>(fibonacci n)</code> to return the n<sup>th</sup>
+		Fibonacci number: 1 1 2 3 5 8 13 ...
+</p></blockquote>
+
+<p></p></li><li>Tracing<br>
+
+<code>(<a href="http://www.lispworks.com/reference/HyperSpec/Body/m_tracec.htm#trace">trace</a>
+<i>function-name ... function-name</i>)</code> turns on tracing of the
+named functions.<br> <code>(trace)</code> returns a list of the
+functions being traced.<br> <code>(<a href="http://www.lispworks.com/reference/HyperSpec/Body/m_tracec.htm#trace">untrace</a>
+<i>function-name ... function-name</i>)</code> turns off tracing of
+the named functions.<br> <code>(untrace)</code> turns off all tracing.
+
+<p>Typing <code>C-c t</code> when your cursor is over a function name,
+either in Common Lisp mode or in Inferior Common Lisp mode, toggles
+tracing of that function.
+
+</p><p>ACL has a <a href="http://www.franz.com/support/documentation/8.1/doc/debugging.htm#tracer-1">ACL
+trace facility</a> with more controls.
+
+</p><p>Try tracing <code>discrim</code> and <code>quad-root</code>.<br>
+Try tracing <code>fact</code> and/or <code>fibonacci</code>.<br>
+Try these with the functions both interpreted and compiled.
+
+      </p></li><li>
+	<p>
+	  Characters
+	</p>
+	<ul>
+	  <li>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/13_.htm">Characters</a>,
+	      like numbers, are "self-evaluating atoms".  Their
+	      syntax is <tt>#\</tt><i>&lt;name of character&gt;</i>.
+	      Try these:
+	    </p>
+	    <blockquote>
+<pre>#\a
+#\space
+#\newline
+</pre>
+	    </blockquote>
+	  </li>
+	  <li>
+	    <p>
+	      Lisp handles Unicode characters and character names.
+	    </p>
+	    <blockquote>
+<pre>#\latin_small_letter_a
+#\latin_small_letter_a_with_acute
+#\latin_small_letter_eth
+#\greek_capital_letter_sigma
+</pre>
+	    </blockquote>
+	    <p>
+	      Note that <tt>#\latin_small_letter_a</tt> is another
+	      example of Lisp choosing a print syntax.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Now try this with each of the characters above:
+	    </p>
+	    <blockquote>
+<pre>(format t "~a" #\latin_small_letter_a_with_acute)
+</pre>
+	    </blockquote>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_format.htm#format"><tt>Format</tt></a>
+	      is the Lisp equivalent of <tt>printf</tt>, only (MUCH!)
+	      more powerful, of course.  We will talk about format in
+	      detail later, but for now, <tt>format t</tt> prints to
+	      standard output, and <tt>~a</tt> is the control sequence
+	      for printing in "human readable" format.
+	    </p>
+	    <p>
+	      Lisp can represent Unicode characters, but Emacs will
+	      only gracefull display the ones in the Latin-1 encoding
+	      (á and ð).  You can try others (e.g.,
+	      <tt>#\greek_capital_letter_sigma</tt>) but Emacs won't
+	      handle them as gracefully.  However, you can see the
+	      Unicode using <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_char_c.htm#char-code"><tt>char-code</tt></a>:
+	    </p>
+	    <blockquote>
+<pre>(char-code #\greek_capital_letter_sigma)
+</pre>
+	    </blockquote>
+	  </li>
+	  <li>
+	    <p>
+	      For character comparison, use <tt>char=</tt>,
+	      <tt>char&lt;</tt>, <tt>char&gt;</tt>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      See <a href="http://www.lispworks.com/reference/HyperSpec/Body/13_aa.htm">§13.1.1</a> for additional useful functions.
+	    </p>
+	  </li>
+	</ul>
+      </li>
+      <li>
+	<p>
+	  Strings
+	</p>
+        <ul>
+	  <li>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/16_.htm">Strings</a>
+	      are also self-evaluating atoms, denoted by a series of
+	      characters between double quotes.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Constructing strings:
+	    </p>
+	    <blockquote>
+	      <pre>"my string"
+(char "my string" 0)
+(char "my string" 2)
+"string with \" in it"
+(char "string with \" in it" 11) 
+(char "string with \" in it" 12) 
+(char "string with \" in it" 13)
+(format t "~a" "string with \" in it")
+(string #\latin_small_letter_a_with_acute)
+(string-capitalize "david.r.pierce")
+(string-trim "as" "sassafras")
+	      </pre>
+	    </blockquote>
+	  </li>
+	  <li>
+	    <p>
+	      Comparing strings:
+	    </p>
+	    <blockquote>
+	      <pre>(string= "david pierce" "David Pierce")
+(string-equal "david pierce" "David Pierce")
+(string&lt; "David Pierce" "Stu Shapiro")
+(string/= "foobar" "foofoo")
+	      </pre>
+	    </blockquote>
+	  </li>
+	  <li>
+	    <p>
+	      Strings as sequences:
+	    </p>
+	    <blockquote>
+<pre>(length "my string")
+(length "\\")
+(format t "~a" "\\")
+(subseq "my string" 3)
+(subseq "my string" 3 6)
+(position #\space "my string")
+(position #\i "David Pierce")
+(position #\i "David Pierce" :start 5)
+(search "pi" "david pierce and stu shapiro")
+(search "pi" "david pierce and stu shapiro" :start2 10)
+(concatenate 'string "foo" "bar")
+(concatenate 'string
+  "d" (string #\latin_small_letter_a_with_grave)
+  "v" (string #\latin_small_letter_i_with_acute)
+  "d")
+</pre>
+	    </blockquote>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/17_.htm">Sequences</a>
+	      comprise several types that act as ordered containers of
+	      elements (including lists and arrays as well as
+	      strings).  Each of these functions accepts sequence
+	      arguments.  We'll talk about sequences more later.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <font color="red">Exercise</font>: Define <tt>(string-1+
+	      s)</tt> to construct a new string by adding 1 to the
+	      character code of each character in its argument.  For
+	      example, <tt>(string-1+ "a b c") =&gt; "b!c!d"</tt>.
+	    </p>
+	  </li>
+	</ul>
+
+<p></p></li><li>Symbols
+<ul>
+
+<li>A <a href="http://www.lispworks.com/reference/HyperSpec/Body/t_symbol.htm#symbol">symbol</a>
+is an atom that might have a value, but might not.
+
+</li><li><a href="http://www.lispworks.com/reference/HyperSpec/Body/02_cd.htm">Syntax</a>:
+almost any sequence of characters (mixed case) that can't be
+interpreted as a number.<br>
+(Warning: In some older implementations, the Lisp reader upper-cases
+		all characters entered unless they're escaped.)
+</li><li>Escape character: <code>\</code>
+</li><li>Escape brackets: <code>| ... |</code>
+</li><li>Attributes of a symbol
+<ol>
+<li><code>symbol-name</code>
+</li><li><code>symbol-value</code>
+</li><li><code>symbol-function</code>
+</li><li><code>symbol-package</code>
+</li><li><code>symbol-plist</code>
+</li></ol>
+
+</li><li>Quote: <code>'<i>expression</i></code> always evaluates to
+<code><i>expression</i></code> rather than the value of
+<code><i>expression</i></code>
+
+<p></p></li><li>Load your source file with the definition of <code>average</code><br>
+Try:
+<pre>(type-of 'average)
+(symbol-name 'average)
+(type-of (symbol-name 'average))
+(symbol-function 'average)
+#'average
+(type-of #'average)
+(type-of (type-of #'average))
+(function-lambda-expression #'average)
+</pre>
+
+<p> Load a compiled version of the file (e.g. with <code>C-c C-b</code>)<br>
+Try:
+</p><pre>#'average
+(function-lambda-expression #'average)
+</pre>
+
+<p></p></li><li>Put your cursor in your <code>*common-lisp*</code> buffer, and
+type <code>C-x 1</code> to expand it.<br>
+Move your cursor over the symbol <code>average</code> in your
+<code>*common-lisp*</code> buffer, and type <code>C-c .</code>
+(Really type the dot.)
+
+<p></p></li><li>Equality function for symbols, and identity in general: <a href="http://www.lispworks.com/reference/HyperSpec/Body/a_eql.htm#eql">eql</a><br>
+Try it.
+
+<p></p></li><li>How does the Lisp reader locate the symbol from what you type?
+<ol>
+
+<li>Read the characters you typed, and construct a string (the
+symbol's name).
+</li><li>Look up the atom from it's name in a "catalogue" (probably a hash table).
+</li><li>If it's not there, create it, and put it there.
+</li></ol>
+<p>The process of installing a symbol in a catalogue is called
+<i>interning</i> it,<br>
+and a symbol that's been so installed is called an <i>interned symbol</i>.<br>
+
+
+</p></li></ul>
+
+<p></p></li><li>Packages
+
+<p>A <a href="http://www.lispworks.com/reference/HyperSpec/Body/t_pkg.htm#package">package</a>
+is a catalogue (map) of symbol name =&gt; symbol.  I.e., a "name
+space".<br>
+
+There's always a current package which the Lisp reader uses to look up
+symbol names.<br> Try typing <code>*package*</code> to the Lisp
+Listener.
+
+</p><p>Lisp packages have nothing to do with file directories or files, though
+the usual style is to have a file "in" only one package.
+
+</p><p> A symbol that's interned in a package may be <b>internal</b> or
+	      <b>external</b> in that package, and that package is
+	      considered the symbol's <b>home package</b>.<br>
+
+Find the home package of a symbol by evaluating <code>(symbol-package
+<i>symbol</i>)</code><br>
+Try <code>(symbol-package 'average)</code> and <code>(symbol-package
+'length)</code>
+
+</p><p>Every package has a name, and may have one or more nicknames.<br>
+Try: <code>(package-name (symbol-package 'average))</code><br>
+and <code>(package-nicknames (symbol-package 'average))</code>
+
+</p><p>Mappings between packages and their (nick)names:
+</p><blockquote>
+<code>(find-package <i>package-name-or-symbol</i>)</code><br>
+<code>(package-name <i>package</i>)</code><br>
+<code>(package-nicknames <i>package</i>)</code>
+</blockquote>
+
+<p>Evaluate <code>(describe 'average)</code> You should be able to
+	      understand all or most of what's printed.
+
+</p><p>Evaluate <code>(describe 'length)</code> Notice how many packages
+	      there are.
+
+</p><p> Put your cursor on a symbol in either the Lisp listener, or in a
+file of Lisp source code, and type <code>C-c d</code>, then
+<code>RET</code> in the minibuffer.
+
+</p><p>Try <code>(documentation 'average 'function)</code>
+
+</p><p>Symbol Completion: <code>C-c TAB</code>
+
+</p><p>You can make a symbol external in its home package by <code><a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/export.htm">export</a></code>ing
+it.<br>
+Try <code>(export 'average)</code><br>
+Describe <code>average</code> again.
+
+</p><p>You can change packages in the Lisp Listener by entering <code>:pa
+<i>name-or-symbol</i></code><br> Try <code>:pa lisp</code> Note the
+prompt.<br>
+
+</p><p>You can refer to a symbol whose home package is <code>p</code> from
+some other package whether or not it is external in <code>p</code>.<br>
+To refer to an external symbol <code>s</code> in package
+<code><i>p</i></code> type <code><i>p</i>:<i>s</i></code><br>
+To refer to an internal symbol <code>s</code> in package
+<code><i>p</i></code> type <code><i>p</i>::<i>s</i></code><br>
+
+</p><p>Try:
+</p><blockquote>
+<pre>'cl-user::discrim
+'cl-user::average
+'cl-user:average
+'cl-user::length
+'discrim
+</pre>
+</blockquote>
+Notice the printed representation Lisp chooses for these symbols.<br>
+Notice that the last entry caused Lisp to create a symbol named
+<code>"discrim"</code> in the <code>common-lisp</code> package.
+
+<p> Enter <code>:pa user</code> to return to the
+<code>common-lisp-user</code> package.<br>
+</p><p>Try:
+</p><blockquote>
+<pre>'cl-user::discrim
+'cl::discrim
+(symbol-name 'discrim)
+(symbol-name 'cl::discrim)
+(string= (symbol-name 'discrim) (symbol-name 'cl::discrim))
+(eql 'discrim 'cl::discrim)
+</pre>
+</blockquote>
+It should not be confusing that <code>discrim</code> and
+<code>cl::discrim</code> are two <i>different</i> symbols that have
+the same name.
+
+<p><b>Two Special Packages</b>
+</p><ol>
+<li>The Keyword Package
+<p>Every symbol in the keyword package is external and evaluates to itself.<br>
+It is entered with an empty package name and a single <code>:</code><br>
+Try <code>(describe :foo)</code>
+
+</p></li><li>The Non-Package
+
+<p>If the reader reads <code>#:<i>s</i></code>, it will create an
+<b>ininterned</b> symbol named <code>"<i>s</i>"</code>, i.e., one that
+is not interned in any package.<br> An uninterned symbol can never by
+found by the Lisp reader, and so will never be <code>eql</code> to any
+separately read symbol, even one with the same name.
+</p><p>Try:
+</p><blockquote>
+<pre>(describe '#:foo)
+(eql '#:foo '#:foo)
+(string=  (symbol-name '#:foo) (symbol-name '#:foo))
+</pre>
+</blockquote>
+Evaluate <code>(gensym)</code>.  <code><a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/gensym.htm">gensym</a></code> creates new uninterned symbols.
+</li></ol>
+
+<p><b>Defining Packages</b>
+
+</p><p>The simplest way to define a package is by evaluating <code>(<a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/defpacka.htm">defpackage</a>
+<i>package-name</i>)</code>, where <code><i>package-name</i></code>,
+which is not evaluated, is either a string, which will be the
+package's name, or a symbol whose name will be used for the name of
+the package.  We recommend using a keyword symbol, such as
+<code>(defpackage :test)</code>.
+
+</p><p>Look at the xemacs buffer in which you've been putting the
+exercises.  Notice "<code>pkg:user</code>" in the mode line.
+
+</p><p>Enter <code>(defpackage :test)</code> as the first form in this
+file, right after your initial comments.
+
+</p><p>We want the symbols in this file to be interned into the
+<code>test</code> package.  So, as the Lisp reader is reading this
+file, we want to change the package to the <code>test</code> package
+right after that package has been defined.  We'll do this by calling
+the <a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/in-packa.htm"><code>in-package</code></a>
+macro, which is what the Listener command <code>:pa</code> calls.  The
+<code>in-package</code> macro takes a string or symbol as its
+argument, but doesn't evaluate it.  We recommend using a symbol of the
+keyword package, so put <code>(in-package :test)</code> right after
+the <code>defpackage</code> form, and save the file.
+
+</p><p>Notice the package in the mode line hasn't changed (yet).  Kill the
+buffer, and reload the file into xemacs.  Notice that the package in
+the mode line is correct.  This is important, because that is the
+package xemacs will use when you do <code>C-c C-b</code> or <code>C-u
+C-c C-b</code>.
+
+</p><p>Edit your file by changing "<code>:test</code>" to
+"<code>:exercises</code>" in both places.  Save the file.  While your
+cursor is still in the buffer containing the file, enter <code>M-x
+fi:parse-mode-line-and-package</code>.  (Use symbol completion.)
+Notice that the package in the mode line has now been updated
+properly.
+
+</p><p>Xemacs sets the package of a buffer by finding the first occurrence
+of a call to <code>in-package</code> in the file.  You should not have
+more than one call to <code>in-package</code> in any file.
+
+</p><p><font color="red">Exercise</font>: Exit from Lisp, and rerun it.
+Load your file of function definitions.  What package is the Listener
+now in?  Test some of your functions.
+
+</p><p>When Lisp loads a file, it stores the value of
+<code>*package*</code>, and restores it after loading the file.
+That's why you didn't have to call <code>in-package</code> after
+loading the file to return to the <code>user</code> package.
+
+</p><p><font color="red">Question</font>: Was the Lisp reader "in" the
+<code>exercises</code> package when it read every form in your file?
+
+</p><p>Make the symbols defining the functions in your
+<code>exercises</code> package external by exporting them:<br>
+Change the form
+</p><blockquote>
+<code>(defpackage :exercises)</code>
+</blockquote>
+to
+<blockquote>
+<pre>(defpackage :exercises
+	    (:export #:average #:discrim #:fact #:quad-roots #:string-1+))
+</pre>
+</blockquote>
+Save this version of the file, exit Lisp, run Lisp again, load your
+source file, and try using the functions from the <code>user</code>
+package.
+
+<p><b>Using Packages</b>
+
+</p><p>One package may <b>use</b> another package.  In that case, in the
+using package every exported symbol of the used package may be
+referred to without a package qualifier.
+
+</p><p>For example, the <code>common-lisp-user</code> package uses the
+<code>common-lisp</code> package, which is why you can enter
+<code>common-lisp</code> symbols such as
+<code>common-lisp:length</code> without typing the package
+qualifier.<br> To see this, evaluate <code>(package-use-list
+:user)</code>.<br> 
+
+The <code>excl</code> package contains many symbols used in the
+Allegro Common Lisp implementation that are not in the standard
+<code>common-lisp</code> package, such as <code>excl:exit</code>.
+
+</p><p>What packages does the <code>exercises</code> package use?<br>
+Every package that's defined uses the <code>common-lisp</code> package
+by default.  This is important so that pre-defined Lisp functions may
+be accessed easily.
+
+</p><p>In the Lisp Listener, in the <code>user</code> package, evaluate
+the form <code>(use-package :exercises)</code>.  Now try using the
+functions you've defined without the package qualifier.
+
+</p><p>You may experiment on your own with defining a package and
+explicitly listing other packages for it to use.  If you explicitly
+indicate any packages to use, you must explicitly list the
+<code>common-lisp</code> package also.
+
+</p><p><b>Shadowing Symbols</b>
+
+</p><p><font color="red">Exercise</font>: In your exercises file, define
+the function <code>last</code> to take a string and return its last
+character.
+
+</p><p>You can't, because <code>last</code> is the name of a function in
+the <code>common-lisp</code> package, and you're not allowed to
+redefine these functions.  (Note: functions aren't in packages.
+Reword that statement more carefully.)
+
+</p><p>There are a lot of symbols in the <code>common-lisp</code> package.
+Must you avoid all of them when naming your functions?  No!
+
+</p><p>Change the package in the Lisp Listener to the
+<code>exercises</code> package, and shadow <code>cl:last</code> by
+evaluating <code>(shadow 'last)</code>, and then type your definition
+of last into the Listener.  Test it.
+
+</p><p>Add your definition of <code>last</code> to your source file, and
+add the form <code>(:shadow cl:last)</code> to your
+<code>defpackage</code> form.  Also add your <code>last</code> symbol
+to those being exported.
+
+</p><p>Exit Lisp.  Rerun it.  Load your source file.  Test your
+<code>last</code> function.
+
+</p><p>Try to have the <code>user</code> package use the
+<code>exercises</code> package.  There's a conflict.  Only one symbol
+with a given name may be accessible in any package without
+qualification.  You have to choose which one.
+
+
+      </p></li><li>
+	<p>
+	  Lists and Conses
+	</p>
+	<p>
+	  Lists are a fundamental data structure in Lisp, from which
+	  the language derives its name (LISt Processing).
+	</p>
+	<p>
+	  A list is an object that holds a sequence of elements, which
+	  may be (references to) any Lisp objects.  The syntax for
+	  lists is (<i>a</i> <i>b</i> <i>c</i> ...).  Lists are
+	  created by <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_list_.htm">list</a>.
+	</p>
+	<blockquote>
+<pre>'()
+'(1 2 3)
+(list 1 2 3)
+</pre>
+	</blockquote>
+	<p>
+	  Notice what Lisp prints for <tt>'()</tt> -- <tt>nil</tt>.
+	  The symbol <tt>nil</tt> also represents the empty list, as
+	  well as false.
+	</p>
+	<p>
+	  <font color="red">Exercise:</font> Construct the list
+	  containing the two lists <tt>(1 2 3)</tt> and <tt>(4 5
+	  6)</tt>.
+	</p>
+	<p>
+	  Accessing elements:
+	</p>
+	<blockquote>
+<pre>(first '(1 2 3))
+(second '(1 2 3))
+(third '(1 2 3))
+(nth 5 '(1 2 3 4 5 6 7 8 9 10))
+(rest '(1 2 3))
+(rest (rest '(1 2 3)))
+(nthcdr 0 '(1 2 3 4 5 6 7 8 9 10))
+(nthcdr 5 '(1 2 3 4 5 6 7 8 9 10))
+</pre>
+	</blockquote>
+	<p>
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/14_ab.htm">Working with lists</a>:
+	</p>
+	<blockquote>
+<pre>(endp '())
+(endp '(1 2 3))
+(endp nil)
+(endp ())
+(listp '())
+(listp '(1 2 3))
+(eql '(1 2 3) '(1 2 3))
+(equal '(1 2 3) '(1 2 3))
+(length '(1 2 3))
+(append '(1 2 3) '(4 5 6))
+(member 3 '(1 2 3 4 5 6))
+(last '(1 2 3 4 5 6))
+(last '(1 2 3 4 5 6) 3)
+(butlast '(1 2 3 4 5 6))
+(butlast '(1 2 3 4 5 6) 3)
+</pre>
+	</blockquote>
+	<p>
+	  Lists are also <a href="http://www.lispworks.com/reference/HyperSpec/Body/17_a.htm">sequences</a>.
+	</p>
+	<p>
+	  <font color="red">Exercise:</font> Write a function
+	  <tt>(reverse l)</tt> which returns a list containing the
+	  elements of list <i>l</i> in reverse order.  (Common Lisp
+	  already includes the <tt>reverse</tt> function, so you must
+	  deal with the name conflict again.)
+	</p>
+	<p>
+	  The basic building block of a list is called a "cons".  A
+	  cons is an object containing two elements.  The elements are
+	  called the <i>car</i> and the <i>cdr</i> (for historical
+	  reasons).  The syntax of a cons is (<i>car</i>
+	  . <i>cdr</i>).  You can picture a cons such as <tt>(1
+	  . 2)</tt> as:
+	</p>
+	<blockquote>
+	  <img src="UB%20Lisp_files/cons.htm">
+	</blockquote>
+	<p>
+	  Conses are used to construct (linked) lists in the usual
+	  way.
+	</p>
+	<blockquote>
+	  <img src="UB%20Lisp_files/list.htm">
+	</blockquote>
+	<p>
+	  When we use conses to implement lists, we will often refer
+	  to the two elements as the <i>first</i> and the <i>rest</i>,
+	  or the <i>head</i> and the <i>tail</i>.  A list whose final
+	  <i>cdr</i> is not the empty list <tt>()</tt> is called a
+	  "dotted list" (e.g., <tt>(1 2 . 3)</tt>).  A "proper list"
+	  has <tt>()</tt> (i.e., <tt>nil</tt>) as its final
+	  <i>cdr</i>.  The function <tt>cons</tt> constructs cons
+	  cells.  Since lists are implemented using conses, it follows
+	  that <tt>cons</tt> is also the function to add elements to
+	  the front of a list.
+	</p>
+	<p>
+	  Working with conses:
+	</p>
+	<blockquote>
+<pre>(cons 1 2)
+(cons 1 nil)
+'(1 . nil)
+(cons 1 '(2 3))
+(consp '(1 . 2))
+(car '(1 . 2))
+(cdr '(1 . 2))
+(first '(1 . 2))
+(rest '(1 . 2))
+</pre>
+	</blockquote>
+
+	<p>
+	  Incidentally, conses can also be used to build binary trees.
+	</p>
+	<blockquote>
+	  <img src="UB%20Lisp_files/tree.htm">
+	</blockquote>
+	<p>
+	  <font color="red">Exercise</font>: Construct the binary tree
+	  pictured above.
+	</p>
+	<p>
+	  <font color="red">Exercise</font>: Define a function
+	  <tt>(flatten2 binary-tree)</tt> that returns the list of
+	  elements in <i>binary-tree</i> in order.
+	</p>
+        <p>
+          Moreover, proper lists can be used to build variable-arity
+          trees -- for example, ((a (b) c) (d ((e)) () f)).
+        </p>
+      </li>
+      <li>
+	<p>
+	  One-Branch Conditionals
+	</p>
+	<p>
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/s_if.htm#if">If</a>
+	  may be used without an <i>else</i> expression.  In this
+	  case, the <i>else</i> expression defaults to <tt>nil</tt>.
+	  However, the preferred style in such a case is to use <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_when_.htm#when">when</a>
+	  and <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_when_.htm#unless">unless</a>.
+	  In particular, <tt>(when <i>test</i>
+	  <i>expression</i>...)</tt> evaluates the <i>test</i> and, if
+	  its result is true, evaluates the <i>expression</i>s in
+	  order, using the result of the last expression as the final
+	  result.  If the test fails, the result is <tt>nil</tt>.
+	  Similarly, <tt>(unless <i>test</i>
+	  <i>expression</i>...)</tt> evaluates its expressions if the
+	  result of the test is false.
+	</p>
+        <p>
+	  Incidentally, many Lisp control structures -- like Lisp
+	  programs -- allow a sequence of expressions and take their
+	  result from the last expression.  These include defun, when,
+	  unless, and cond, which we will see next.  Control
+	  structures that do this are said in the language
+	  specification to use an "implicit progn".  Perhaps later
+	  we'll mention where this terminology originates.
+	</p>
+	<p>
+	  One-branch conditionals are particularly useful when the
+	  default value of a computation is <tt>nil</tt>.  For
+	  example:
+	</p>
+	<blockquote>
+<pre>(defun member (x list)
+  "Returns true if x is a member of list."
+  (when list
+    (or (eql x (first list)) (member x (rest list)))))
+</pre>
+	</blockquote>
+	<p>
+	  <font color="red">Exercise</font>: Write a function
+	  <tt>(get-property x list)</tt> which returns the element of
+	  <i>list</i> immediately following <i>x</i>, or <i>nil</i> if
+	  <i>x</i> does not appear in <i>list</i>.  For example,
+	  <tt>(get-property 'name '(name david office 125)) =&gt;
+	  david</tt>. (You might take advantage of the fact that
+	  Lisp's builtin <tt>member</tt> function does not just return
+	  <tt>t</tt> when <i>x</i> is in the list.  You can write this
+	  without using <tt>when</tt>, but just for fun, use it
+	  anyway.)  A list of the form used by this function is
+	  traditionally called a <a href="http://www.lispworks.com/reference/HyperSpec/Body/26_glo_p.htm#property_list">property
+	  list</a>.  Similar builtin functions are <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_getf.htm#getf">getf</a> and <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_get_pr.htm#get-properties">get-properties</a>,
+	  although they take slightly different arrangements of
+	  arguments.
+	</p>
+
+      </li>
+      <li>
+	<p>
+	  Multi-Branch Conditionals
+	</p>
+	<p>
+	  The form of the multi-branch conditional is:
+	</p>
+	<blockquote>
+<pre>(cond
+ (<i>expression</i><sub>11</sub> <i>expression</i><sub>12</sub> ...)
+ (<i>expression</i><sub>21</sub> <i>expression</i><sub>22</sub> ...)
+ ...
+ (<i>expression</i><sub>n1</sub> <i>expression</i><sub>n2</sub> ...))
+</pre>
+	</blockquote>
+
+<p>The <code><i>expression</i><sub>i1</sub></code> are evaluated
+starting at <i>i = 1</i> until one of them evaluates to any
+non-<code>null</code> value.  If so, the rest of the expressions in
+that group (if any) are evaluated, and the value of the last one
+evaluated becomes the value of the <code>cond</code>.  If all of the
+<code><i>expression</i><sub>i1</sub></code> evaluate to
+<code>nil</code>, then the value of the <code>cond</code> is
+<code>nil</code>.  As is often the case, the value of a Lisp
+expression is the value of the last subexpression evaluated under its
+control.
+
+</p><p>Most frequently, <code>cond</code> is thought of as:
+
+	</p><blockquote>
+<pre>(cond
+ (<i>test</i><sub>1</sub> <i>expression</i><sub>1</sub> ...)
+ (<i>test</i><sub>2</sub> <i>expression</i><sub>2</sub> ...)
+ ...
+ (<i>test</i><sub>n</sub> <i>expression</i><sub>n</sub> ...))
+</pre>
+	</blockquote>
+	<p>
+	  The last <i>test</i> may be <tt>t</tt>, when it is to be
+	  considered the default clause.
+	</p>
+	<blockquote>
+<pre>(defun elt (list index)
+  "Returns the index'th element of list, or nil if there isn't one."
+  (cond
+   ((endp list)
+    nil)
+   ((zerop index)
+    (first list))
+   (t
+    (elt (rest list) (1- index)))))
+</pre>
+      </blockquote>
+	<p>
+	  <font color="red">Exercise</font>: Define <tt>(flatten
+	  tree)</tt> to take an argument list representing a
+	  variable-arity tree, and return a list of all the atoms
+	  which appear in it.  For example <tt>(flatten '((a (b) c) ()
+	  (((d e))))) =&gt; (a b c d e)</tt>.
+	</p>
+	<p>
+	  Another convenient use of the multi-branch conditional is
+	  encapsulated in the <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_case_.htm#case">case</a>
+	  form.  Case implements branching on the value of an
+	  expression indexed by literal constants (similar to "switch"
+	  in other languages).  For example, suppose we ask someone to
+	  guess a number:
+	</p>
+	<blockquote>
+<pre>(case (read)
+  (2 "sorry, too low")
+  (3 "right on!")
+  (4 "sorry, too high")
+  (t "way off?!"))
+</pre>
+	</blockquote>
+	<p>
+	  A <tt>case</tt> form is more or less equivalent to a
+	  <tt>cond</tt> form as follows:
+	</p>
+	<blockquote>
+<pre>(case <i>expression</i>
+  (<i>literal</i><sub>1</sub> <i>result</i><sub>1</sub>)
+  (<i>literal</i><sub>2</sub> <i>result</i><sub>2</sub>)
+  ...
+  (<i>literal</i><sub>n</sub> <i>result</i><sub>n</sub>))
+</pre>
+	  <p>
+	    ≡
+	  </p>
+<pre>(cond
+  ((eql '<i>literal</i><sub>1</sub> <i>expression</i>) <i>result</i><sub>1</sub>)
+  ((eql '<i>literal</i><sub>2</sub> <i>expression</i>) <i>result</i><sub>2</sub>)
+  ...
+  ((eql '<i>literal</i><sub>n</sub> <i>expression</i>) <i>result</i><sub>n</sub>))
+</pre>
+	</blockquote>
+	<p>
+	  except that <i>expression</i> is only evaluated once.  As
+	  with <tt>cond</tt>, the last clause may be labeled with
+	  <tt>t</tt> to indicate that it is the default clause.  Also
+	  notice the quote in the cond, as the literals are not
+	  evaluated in a <tt>case</tt> form.
+	</p>
+
+<p>Unlike, C's <code>switch</code> statement, Lisp's <code>case</code>
+can handle multiple cases giving the same answer without the need for
+a <code>break</code>.  For example,
+</p><pre>(case (read)
+  ((#\a #\e #\i #\o #\u) 'vowel)
+  (#\y 'sometimes\ vowel)
+  (t 'consonent))
+</pre>
+
+      </li>
+
+      <li>
+	<p>
+	  Local Variables
+	</p>
+	<p>
+	  Remember the <tt>quad-roots</tt> function from a few weeks
+	  ago?
+	</p>
+	<blockquote>
+<pre>(defun quad-roots (a b c)
+  "Returns the two roots of the equation ax^2 + bx + c."
+  (values (/ (+ (- b) (discrim a b c)) (* 2 a))
+	  (/ (- (- b) (discrim a b c)) (* 2 a))))
+</pre>
+	</blockquote>
+	<p>
+	  It would be preferable to avoid recalculating all the
+	  subexpressions of this formula for the two returned values.
+	  Local variables are introduced by <a href="http://www.lispworks.com/reference/HyperSpec/Body/s_let_l.htm#let">let</a>.
+	</p>
+	<blockquote>
+<pre>(defun quad-roots (a b c)
+  "Returns the two roots of the equation ax^2 + bx + c."
+  (let ((-b (- b))
+        (d  (discrim a b c))
+        (2a (* 2 a)))
+    (values (/ (+ -b d) 2a) (/ (- -b d) 2a))))
+</pre>
+	</blockquote>
+	<p>
+	  The general form of a let expression is:
+	</p>
+	<blockquote>
+<pre>(let ((<i>v</i><sub>1</sub> <i>e</i><sub>1</sub>)
+      (<i>v</i><sub>2</sub> <i>e</i><sub>2</sub>)
+      ...
+      (<i>v</i><sub>n</sub> <i>e</i><sub>n</sub>))
+  <i>expression</i>
+  ...)
+</pre>
+	</blockquote>
+	<p>
+	  The variables <i>v</i><sub>1</sub> through
+	  <i>v</i><sub>n</sub> are bound to the results of the
+	  expressions <i>e</i><sub>1</sub> through
+	  <i>e</i><sub>n</sub>.  These bindings have effect throughout
+	  the body <i>expression</i>s.  As usual, the result of the
+	  let expression is the result of the last body expression.
+	</p>
+	<p>
+	  Let bindings are lexically scoped:
+	</p>
+	<blockquote>
+<pre>(let ((x 1))
+  (list
+    (let ((x 2))
+      x)
+    (let ((x 3))
+      x)))
+</pre>
+	</blockquote>
+	<p>
+	  Let bindings are performed in parallel:
+	</p>
+	<blockquote>
+<pre>(let ((x 3))
+  (let ((x (1+ x))
+        (y (1+ x)))
+    (list x y)))
+</pre>
+	</blockquote>
+	<p>
+	  A variant of let called let* performs the bindings
+	  sequentially.
+	</p>
+	<blockquote>
+<pre>(let ((x 3))
+  (let* ((x (1+ x))
+         (y (1+ x)))
+    (list x y)))
+</pre>
+	</blockquote>
+	<blockquote>
+<pre></pre>
+	</blockquote>
+      </li>
+
+<p></p><li><a href="http://www.franz.com/support/documentation/8.1/ansicl/subsecti/ordinary.htm">Lambda Lists</a>
+
+The list of formal parameters following the function name in a
+<code>defun</code> form is called a <i>lambda list</i>.  The lambda
+lists we have seen so far contain only required parameters, but there
+are actually a total of five kinds of parameters that might be
+included, in the order listed below.
+
+<dl>
+<dt><a href="http://www.franz.com/support/documentation/8.1/ansicl/subsubse/specifi2.htm">Required Parameters</a>
+
+</dt><dd>Required parameters are the normal formal parameters you are used
+to.  There must be one actual argument for each required parameter,
+and the required parameters are bound to the values of the actual
+arguments in left-to-right order.
+
+<p></p></dd><dt><a href="http://www.franz.com/support/documentation/8.1/ansicl/subsubse/specifi1.htm">Optional Parameters</a>
+</dt><dd> Optional parameters follow the lambda list keyword
+<code>&amp;optional</code>.  Each optional parameter may be
+<blockquote>
+<code><i>var</i></code><br>
+<code>(<i>var default-value</i>)</code><br>
+ or <code>(<i>var default-value supplied-p</i>)</code>
+</blockquote>
+If there are more actual arguments than required parameters, the
+extras are bound to the optional parameters in left-to-right order.
+If there are extra optional parameters, they are bound to the value of
+<code><i>default-value</i></code>, if it is present, else to
+<code>nil</code>.  If <code><i>supplied-p</i></code> is present and
+there is an actual argument for the optional parameters, it is bound
+to <code>t</code>, otherwise it is bound to <code>nil</code>.<br>
+Examples:
+<ol>
+<li>Notice that the function <code>last</code> takes an optional argument.
+<p></p></li><li>Try:
+<blockquote>
+<pre>(defun testOpt (a b &amp;optional c (d 99 dSuppliedp))
+  (list a b c d
+        (if dSuppliedp '(supplied) '(default))))
+(testOpt 2 3)
+(testOpt 2 3 4 5)
+</pre>
+</blockquote>
+</li></ol>
+
+<font color="red">Exercise</font>: Redefine your
+<code>reverse</code>/<code>reverse1</code> pair as the single function
+<code>reverse</code>, that takes one required argument and one
+optional argument.
+
+<p></p></dd><dt><a href="http://www.franz.com/support/documentation/8.1/ansicl/subsubse/aspecifi.htm">Rest Parameters</a>
+
+</dt><dd>Using required and optional parameters, a Lisp function is
+restricted to a maximum number of actual arguments.  If the lambda
+list contains the keyword <code>&amp;rest</code>, it must be followed by a
+simple parameter symbol, and that symbol is bound to a list of the
+values of all the actual arguments that follow the required arguments.<br>
+Examples:
+<ol>
+<li>Notice that the function <code>-</code> has one required parameter
+and a rest parameter, so it takes one or more arguments.
+<p></p></li><li>Notice that <code>and</code> has only a rest parameter, so it
+takes zero or more arguments.
+<p></p></li><li>Try
+<blockquote>
+<pre>(defun testRest (a b &amp;rest c)
+  (list a b c))
+(testRest 1 2)
+(testRest 1 2 3 4 5 6)
+</pre>
+</blockquote>
+</li></ol>
+
+
+<p><font color="red">Exercise</font>: The function <a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/unionnun.htm"><code>union</code></a>
+takes two lists and returns a list of all the elements that are in
+either argument list.  Try it.  Define your own <code>union</code>
+function, in your package, that takes zero or more argument lists,
+and, using <code>cl:union</code> returns the union of all its
+argument lists.
+
+</p><p><font color="green">Bonus fact</font>: The Lisp function
+<code>apply</code> takes two arguments: a function, and a list of
+arguments for the function.  <code>apply</code> returns the value of
+applying the function to those arguments.<br>
+Try:
+</p><blockquote>
+<pre>(apply #'cons '(a b))
+(apply #'+ '(1 2 3 4))
+</pre>
+</blockquote>
+
+<p></p></dd><dt><a href="http://www.franz.com/support/documentation/8.1/ansicl/subsubse/specifi0.htm">Keyword Parameters</a>
+
+</dt><dd> A problem with optional parameters would occur if you defined a
+function with several optional parameters, and the user wanted to call
+the function with an optional argument other than the first.  The
+first actual argument after the required arguments would be always be
+assigned to the first optional parameter.
+
+<p> Keyword parameters are optional, but their arguments may appear in
+any order, and any one may be supplied or omitted independently of the
+others.
+
+</p><p> Keyword parameters follow the lambda list keyword
+<code>&amp;key</code>.  Each keyword parameter may be
+</p><blockquote>
+<code><i>var</i></code><br>
+<code>(<i>var default-value</i>)</code><br>
+ or <code>(<i>var default-value supplied-p</i>)</code>
+</blockquote>
+A keyword parameter <code><i>var</i></code> is used in the body of the
+function as you would expect, but in the function call, a keyword
+argument is specified by preceding it with a symbol in the keyword
+package whose name is the same as the name of the
+<code><i>var</i></code>, that is, <code>:<i>var</i></code>.<br>
+<p><font color="red">Exercise</font>:
+</p><ol>
+<li>Try
+<blockquote>
+<pre>(defun testKey (a &amp;key oneKey (twoKey 99 2Suppliedp))
+  (list a oneKey twoKey
+	(if 2Suppliedp '(supplied) '(default))))
+(testKey 2)
+(testKey 2 :oneKey 5)
+(testKey 2 :twoKey 5)
+(testKey 2 :twoKey 10 :oneKey 5)
+</pre>
+</blockquote>
+
+<p></p></li><li>Notice that <code><a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/memberme.htm">member</a></code>
+has two required parameters and three keyword parameters.<br>
+Try
+<blockquote>
+<pre>(member '(a b) '((a c) (a b) (c a)))
+(member '(a b) '((a c) (a b) (c a)) :test #'equal)
+(member 'a '((a c) (a b) (c a)))
+(member 'a '((a c) (a b) (c a)) :key #'second)
+(member 'a '((a c) (a b) (c a)) :key #'second :test-not #'eql)
+</pre>
+</blockquote>
+
+<p></p></li><li> Notice that <a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/unionnun.htm"><code>cl:union</code></a>
+also takes three keyword parameters.  Modify your arbitrary-argument
+<code>union</code> to accept the same three keyword parameters, and
+pass on to <code>cl:union</code> those, but only those, that are
+passed to your function.
+
+<p><font color="green">Bonus fact</font>: The function <a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/identity.htm"><code>identity</code></a>
+returns the value of its argument.
+
+</p></li></ol>
+
+
+<p></p></dd><dt><a href="http://www.franz.com/support/documentation/8.1/ansicl/subsubse/specifie.htm">Aux Parameters</a>
+
+</dt><dd>Aux parameters follow the lambda list keyword <code>&amp;aux</code>,
+and are a list of local variables with initializations.  The
+definition
+<blockquote>
+<pre>(defun (var1 ... varn &amp;aux avar1 ... avarm)
+  body)
+</pre>
+</blockquote>
+is exactly equivalent to 
+<blockquote>
+<pre>(defun (var1 ... varn)
+  (let* (avar1 ... avarm)
+    body))
+</pre>
+</blockquote>
+
+<p><font color="red">Exercise</font>:
+</p><ol>
+<li>Try
+<blockquote>
+<pre>(defun test (x &amp;aux (x (1+ x)) (y (1+ x)))
+  (list x y))
+(test 3)
+</pre>
+</blockquote>
+
+<p></p></li><li>Rewrite your <code>quad-roots</code> function to use aux
+parameters instead of let variables.
+</li></ol>
+</dd></dl>
+
+      </li><li>
+	  <a name="iteration"></a>
+	<p>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/06_.htm">Iteration</a>
+	</p>
+	<p>
+	  There are a number of iteration constructs in Lisp, but only
+	  one that you need to know -- the <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_loop.htm#loop">loop</a>
+	  facility.  Loop subsumes all the other iteration constructs;
+	  and it is easier to read and more flexible.
+	</p>
+	<p>
+	  The simplest kind of loop takes the form: <tt>(loop
+	  <i>expression</i>...)</tt>.  This repeatedly executes the
+	  <i>expression</i>s.  The loop is essentially infinite, but
+	  you can use <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_return.htm#return">return</a>
+	  to end it.
+	</p>
+	<p>
+	  An "extended loop" consists of a sequence of <i>loop
+	  clauses</i>.  Here is a simple example
+	</p>
+	<blockquote>
+<pre>(loop for i from 1 to 10
+  do (print (* i i)))
+</pre>
+	</blockquote>
+	<p>
+	  which comprises two clauses: (1) <tt>for i from 1 to
+	  10</tt>; and (2) <tt>do (print (* i i))</tt>.
+	</p>
+	<p>
+	  As you can see, loops don't look like normal Lisp code.
+	  Normal Lisp code uses list forms to indicate the structure
+	  of the program.  In constrast, since loops are more
+	  syntactically complex, a number of "loop keywords" are
+	  employed to indicate their structure.  (Loop "keywords" are
+	  not really keyword symbols, but rather syntactic keywords
+	  like the keywords of Java, or the keywords of lambda lists
+	  -- <tt>&amp;rest</tt>, etc.)  Each kind of loop clause is
+	  introduced by a different keyword.  Other keywords are used
+	  to indicate the internal structure of a compound clause.
+	</p>
+	<p>
+	  There are seven kinds of loop clauses -- <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_aba.htm">iteration control clauses</a>, <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_ad.htm">termination tests</a>, <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_ac.htm">value accumulation clauses</a>, <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_ae.htm">unconditional execution clauses</a>, <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_af.htm">conditional execution clauses</a>, <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_agb.htm">initial-final clauses</a>, <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_abb.htm">local variable clauses</a>.
+	</p>
+	<ol>
+	  <li>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_aba.htm">Iteration control clauses</a>
+	    </p>
+	    <p>
+	      Iteration control clauses are introduced by the keyword
+	      <tt>for</tt>, determine how a loop variable is "stepped"
+	      between each iteration, and arrange for the loop to
+	      terminate when finished stepping.  There are seven kinds
+	      of iteration control clauses.  Some of these clauses
+	      iterate over common data structures, one iterates
+	      numerically, and one is a general-purpose clause.
+	    </p>
+	    <ol>
+	      <li>
+		<p>
+		  <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_abaa.htm">Numeric ranges</a>:
+		  <tt>for <i>var</i> from <i>start</i> {to | upto |
+		  below | downto | above} <i>end</i> [by
+		  <i>incr</i>]</tt>
+		</p>
+		<blockquote>
+<pre>(loop for i from 99 downto 66 by 3
+  do (print i))
+</pre>
+		</blockquote>
+	      </li>
+	      <li>
+		<p>
+		  <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_abab.htm">List elements</a>:
+		  <tt>for <i>var</i> in <i>list</i> [by <i>step-fun</i>]</tt>
+		</p>
+		<blockquote>
+<pre>(loop for x in '(a b c d e)
+  do (print x))
+
+(loop for x in '(a b c d e) by #'cddr
+  do (print x))
+</pre>
+		</blockquote>
+		<p>
+		  An interesting aspect of the loop facility is that
+		  it allows <i>destructuring</i> bindings.
+		</p>
+		<blockquote>
+<pre>;; Ignore the format magic used in the following examples for now.
+;; We'll talk about format later.
+
+(loop for (l n) in '((a 1) (b 2) (c 3) (d 4) (e 5))
+  do (format t "~a is the ~:r letter~%" l n))
+
+(loop for (first . rest) in '((42) (a b) (1 2 3) (fee fie foe fum))
+  do (format t "~3a has ~d friend~:*~p~%" first (length rest)))
+</pre>
+		</blockquote>
+	      </li>
+	      <li>
+		<p>
+		  <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_abac.htm">List tails</a>:
+		  <tt>for <i>var</i> on <i>list</i> [by <i>step-fun</i>]</tt>
+		</p>
+		<blockquote>
+<pre>(loop for x on '(a b c d e)
+  do (print x))
+
+(loop for x on '(a b c d e) by #'cddr
+  do (print x))
+</pre>
+		</blockquote>
+		<p>
+		  And with destructuring again:
+		</p>
+		<blockquote>
+<pre>(loop for (x y) on '(a b c d e f) by #'cddr
+  do (print (list x y)))
+</pre>
+		</blockquote>
+	      </li>
+	      <li>
+		<p>
+		  <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_abae.htm">Vector elements</a>:
+		  <tt>for <i>var</i> across <i>vector</i></tt>
+		</p>
+		<blockquote>
+<pre>(loop for c across "david"
+  do (print (char-upcase c)))
+</pre>
+		</blockquote>
+	      </li>
+	      <li>
+		<p>
+		  <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_abaf.htm">Hash table elements</a>:
+		  <tt>for <i>var</i> being each {hash-key | hash-value} of <i>hash-table</i></tt>
+		</p>
+	      </li>
+	      <li>
+		<p>
+		  <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_abag.htm">Package symbols</a>:
+		  <tt>for <i>var</i> being each {present-symbol | symbol | external-symbol} [of <i>package</i>]</tt>
+		</p>
+		<blockquote>
+<pre>(loop for x being each present-symbol of *package*
+  do (print x))
+</pre>
+		</blockquote>
+	      </li>
+	      <li>
+		<p>
+		  <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_abad.htm">Anything</a>:
+		  <tt>for <i>var</i> = <i>expression</i> [then <i>expression</i>]</tt>
+		</p>
+		<blockquote>
+<pre>(loop
+  for x from 0 below 10
+  for y = (+ (* 3 x x) (* 2 x) 1)
+  do (print (list x y)))
+
+(loop
+  for l in '(a b c d e)
+  for m = 1 then (* 2 m)
+  do (format t "the bit mask for ~a is ~d~%" l m))
+
+(loop
+  for prev = #\d then next
+  for next across "avid"
+  do (format t "~a came before ~a~%" prev next))
+</pre>
+		</blockquote>
+	      </li>
+	    </ol>
+	    <p>
+	      Iteration control clauses are normally performed
+	      sequentially.  Stepping can be performed in parallel by
+	      connecting the clauses with <tt>and</tt> rather than
+	      <tt>for</tt>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_ac.htm">Value accumulation clauses</a>
+	    </p>
+	    <p>
+	      Normally, <tt>loop</tt> returns <tt>nil</tt>.  However,
+	      value accumulation clauses can determine other values to
+	      return.
+	    </p>
+	    <p>
+	      List accumulation clauses construct a result list:
+	      <tt>{collect | append} <i>expression</i> [into <i>var</i>]</tt>.
+	    </p>
+	    <blockquote>
+<pre>(defun explode (string)
+  (loop for c across string collect c))
+
+(defun flatten (tree)
+  (if (listp tree)
+    (loop for child in tree append (flatten child))
+    (list tree)))
+
+(loop for r on '(a b c d e)
+  collect (length r)
+  append r)
+</pre>
+	    </blockquote>
+	    <p>
+	      Numeric accumulation clauses compute a result value:
+	      <tt>{count | sum | minimize | maximize} <i>expression</i> [into <i>var</i>]</tt>.
+	    </p>
+	    <blockquote>
+<pre>(loop for l in '((1 2 3) () (fee fie foe fum) () (a b c d e))
+  for n = (length l)
+  count l into count
+  sum n into sum
+  minimize n into min
+  maximize n into max
+  do (print (list count sum min max)))
+
+(loop for l in '((1 2 3) () (fee fie foe fum) () (a b c d e))
+  for n = (length l)
+  maximize n into max
+  sum max)
+
+(loop for l in '((1 2 3) () (fee fie foe fum) () (a b c d e))
+  count l
+  count l
+  sum (length l))
+</pre>
+	    </blockquote>
+	  </li>
+	  <li>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_agb.htm">Initial-final clauses</a>
+	    </p>
+	    <blockquote>
+<pre>(loop
+  initially (format t "testing")
+  repeat 10 do
+  (sleep 0.5)
+  (format t ".")
+  finally (format t "done~%"))
+</pre>
+	    </blockquote>
+	    <p>
+	      The <tt>finally</tt> clause is especially useful for
+	      returning a value computed by the loop.
+	    </p>
+	    <blockquote>
+<pre>(loop for l in '((1 2 3) () (fee fie foe fum) () (a b c d e))
+  for n = (length l)
+  count l into count
+  sum n into sum
+  minimize n into min
+  maximize n into max
+  finally (return (values count sum min max)))
+
+;; just to mess with you
+(loop repeat 5 collect (copy-list foo) into foo finally (return foo))
+</pre>
+	    </blockquote>
+	    <p>
+	      <font color="red">Exercise</font>: Rewrite the
+	      <tt>fact</tt> function using <tt>loop</tt>.  Rewrite the
+	      <tt>fibonacci</tt> function.
+	    </p>
+<!--
+(defun fact (n)
+  (loop
+   for i from 1 to n
+   for f = 1 then (* f i)
+   finally (return f)))
+-->
+	  </li>
+	  <li>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_ae.htm">Unconditional execution clauses</a>
+	    </p>
+	    <p>
+	      You've already seen one of the two unconditional
+	      execution clauses.
+	    </p>
+	    <ul>
+	      <li><tt>do <i>expression</i> ...</tt></li>
+	      <li><tt>return <i>expression</i></tt></li>
+	    </ul>
+	    <p>
+	      The <tt>do</tt>, <tt>initially</tt>, and
+	      <tt>finally</tt> clauses are the only places in
+	      <tt>loop</tt> where a sequence of expressions is allowed
+	      after a loop keyword.  As usual, these are executed
+	      sequentially.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_af.htm">Conditional execution clauses</a>
+	    </p>
+	    <p>
+	      The form of a conditional execution clause is
+	    </p>
+	    <blockquote>
+<pre>{if | when | unless} <i>test</i>
+  <i>selectable-clause</i> {and <i>selectable-clause</i>}*  
+[else
+  <i>selectable-clause</i> {and <i>selectable-clause</i>}*]
+[end]
+</pre>
+	    </blockquote>
+	    <p>
+	      where a <i>selectable-clause</i> is a value accumulation
+	      clause or unconditional or conditional execution clause.
+	    </p>
+	    <blockquote>
+<pre>(loop for x in '((1 2 3) 4 (5 6) 7 8)
+  if (listp x)
+    sum (apply #'* x)
+  else
+    sum x)
+</pre>
+	    </blockquote>
+	    <p>
+	      <font color="red">Exercise</font>: Rewrite the
+	      <tt>get-property</tt> function using <tt>loop</tt>.
+	      Explain how your new implementation improves over the
+	      old one, assuming that even elements of a property list
+	      are meant as keys and odd elements as values.
+	    </p>
+<!--
+(defun get-properties (x plist)
+  (loop for (k v) on plist by #'cddr
+    when (eql x k) return (values v t)))
+-->
+	  </li>
+	  <li>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_ad.htm">Termination tests</a>
+	    </p>
+	    <ul>
+	      <li><tt>repeat <i>number</i></tt></li>
+	      <li><tt>while <i>test</i></tt></li>
+	      <li><tt>until <i>test</i></tt></li>
+	      <li><tt>always <i>expression</i></tt></li>
+	      <li><tt>never <i>expression</i></tt></li>
+	      <li><tt>thereis <i>expression</i></tt></li>
+	    </ul>
+	    <blockquote>
+<pre>(defun power (x n)
+  (loop repeat n
+    for y = x then (* y x)
+    finally (return y)))
+
+(defun user-likes-lisp-p ()
+  (loop initially (format t "Do you like Lisp? ")
+    for x = (read)
+    until (member x '(y n))
+    do (format t "Please type either `y' or `n'. ")
+    finally (return (eql x 'y))))
+
+(defun composite-p (n)
+  (loop for k from 2 below (sqrt (1+ n))
+    thereis (when (zerop (nth-value 1 (floor n k))) k)))
+
+;; just for fun
+(defun prime-factorization (n)
+  (let ((k (composite-p n)))
+    (if k
+      (append (prime-factorization k) (prime-factorization (floor n k)))
+      (list n))))
+</pre>
+	    </blockquote>
+	    <p>
+	      <font color="red">Exercise</font>: Define a function
+	      <tt>(split <i>list</i> <i>splitters</i>)</tt> that
+	      returns a list of chunks of the <i>list</i> that occur
+	      between elements of <i>splitters</i>.  For example,
+	      <tt>(split '(1 2 3 4 5 6 7 8 9) '(3 6)) =&gt; '((1 2) (4 5)
+	      (7 8 9))</tt>.  (<font color="green">Hint</font>: Use a
+	      nested loop.)
+	    </p>
+<!--
+(defun split (list splitters)
+  (loop with l = (length list)
+    for i = 0 then (1+ k)
+    for (k . s) =
+    (loop
+      for j from i
+      while (< j l)
+      until (member (elt list j) splitters)
+      collect (elt list j) into s
+      finally (return (cons j s)))
+    while (<= i l)
+    collect s))
+-->
+	    <p>
+	      Two other ways of terminating a loop should be
+	      mentioned.  The form <tt>(return [<i>value</i>])</tt>
+	      immediately terminates the loop and returns the
+	      <i>value</i>.  The form <tt>(loop-finish)</tt>
+	      terminates the loop, executes the <tt>finally</tt>
+	      clauses, and returns any accumulated value.
+	    </p>
+	    <p>
+	      A loop can be named -- <tt>(loop named <i>name</i>
+	      <i>clauses</i>...)</tt>; and such a loop can be
+	      terminated using <tt>(return-from <i>name</i>
+	      [<i>value</i>])</tt> similarly to <tt>return</tt>.
+	      (More precisely, a loop establishes an implicit <a href="http://www.lispworks.com/reference/HyperSpec/Body/s_block.htm#block">block</a>
+	      of the same name, or <tt>nil</tt>.)
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <a href="http://www.lispworks.com/reference/HyperSpec/Body/06_abb.htm">Local variable clauses</a>	  
+	    </p>
+	    <blockquote>
+<pre>(loop with s = "david pierce"
+  for prev = (char s 0) then next
+  for next across (subseq s 1)
+  do (format t "~a came before ~a~%" prev next))
+</pre>
+	    </blockquote>
+	    <p>
+	      <tt>With</tt> clauses are normally initialized
+	      sequentially.  Variables can be initialized in parallel
+	      by connecting the clauses with <tt>and</tt> rather than
+	      <tt>with</tt>.
+	    </p>
+	  </li>
+	</ol>
+	<p>
+	  I'll conclude this lesson with a few additional points about
+	  loops.
+	</p>
+	<ul>
+	  <li>
+	    <p>
+	      As we have seen, termination conditions can arise in
+	      several places -- iteration control clauses, termination
+	      test clauses, and even uses of <tt>return</tt> and
+	      <tt>loop-finish</tt>.  Just to clarify, a loop
+	      terminates when its <i>first</i> termination condition
+	      is satisfied.  Depending on the type of termination, the
+	      loop may or may not return a value, and may or may not
+	      execute the finally clauses.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Although <tt>loop</tt> is quite flexible about the order
+	      of clauses, the order is not completely free.  The
+	      general rule is the "variable" clauses come before
+	      "action" clauses.  The "variable" clauses are the
+	      interation control and <tt>with</tt> clauses.  The
+	      "action" clauses are the execution, value accumulation,
+	      and termination test clauses.  Initial-final clauses may
+	      occur anywhere.
+	    </p>
+	  </li>
+	</ul>
+      </li>
+
+<p></p><li>Assignment
+<dl>
+<dt>Globals
+</dt><dd>
+<blockquote>
+<code>(</code><a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/defconst.htm"><code>defconstant</code></a>
+<code><i>name initial-value [documentation]</i>)</code><br>
+Illegal to change value.
+
+<p><code>(</code><a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/defparam.htm"><code>defparameter</code></a>
+<code><i>name initial-value [documentation]</i>)</code>
+
+</p><p><code>(</code><a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/defparam.htm"><code>defvar</code></a>
+<code><i>name [initial-value [documentation]]</i>)</code><br>
+Won't reinitialize the variable.
+</p></blockquote>
+Usual style is to name globals <code>*<i>var</i>*</code>
+<p>
+<font color="red">Try:</font><br>
+</p><blockquote>
+<pre>(defconstant *Lab* 'Baldy\ 19
+  "Where we meet.")
+*Lab*
+(defconstant *Lab* 'Baldy\ 21
+  "Where we meet.")
+*Lab*
+(defparameter *Time* "TTh 1:30-2:30"
+  "Time of our meeting")
+*Time*
+(defparameter *Time* "MTh 10:30-1:30"
+  "Time of our meeting")
+*Time*
+(defvar *Attendance* 20
+  "The number of students attending")
+*Attendance*
+(defvar *Attendance* 6
+  "The number of students attending")
+*Attendance*
+</pre>
+</blockquote>
+
+<p></p></dd><dt>Assignment
+</dt><dd>
+<blockquote>
+
+<code>(</code><a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/set.htm">set</a>
+<code><i>symbol value</i>)</code><br>
+Evaluates both arguments.
+
+<p><code>(</code><a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/setq.htm">setq</a>
+<code><i>{symbol value}*</i>)</code><br>
+Doesn't evaluate <code><i>symbol</i></code>.  <b>Old fashioned.</b>
+
+</p><p><code>(</code><a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/setfpset.htm">setf</a>
+<code><i>{place value}*</i>)</code><br>
+Uses l-value of <code><i>place</i></code>. Sequential.
+
+</p><p><code>(</code><a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/setfpset.htm">psetf</a>
+<code><i>{place value}*</i>)</code><br>
+Uses l-value of <code><i>place</i></code>. Parallel.
+</p></blockquote>
+
+<font color="red">Try:</font><br>
+<blockquote>
+<pre>(setf *Lab* 'Baldy\ 19)
+(setf *Time* "TTh 10:30-1:30"
+      *Attendance* 10)
+*Time*
+*Attendance*
+
+(setf x 3 y 5) <i>; Don't assign to new global variables in a function body</i>
+x
+y
+(psetf x y y x)
+x
+y
+</pre>
+</blockquote>
+
+<p></p></dd><dt>Places
+
+</dt><dd><p>
+May be a symbol, or a wide variety of specifiers of <a href="http://www.franz.com/support/documentation/8.1/ansicl/section/generali.htm">generalized reference</a>s.<br>
+For example:
+</p><blockquote>
+<pre>(setf x '(a b c d e))
+(setf (second x) 2)
+x
+
+(setf addresses (make-hash-table))
+(setf (gethash 'Stu addresses) 'shapiro@cse.buffalo.edu)
+(setf (gethash 'David addresses) 'drpierce@cse.buffalo.edu)
+(setf (gethash 'Luddite addresses) nil)
+(gethash 'David addresses)
+(gethash 'Stu addresses)
+(gethash 'Luddite addresses)
+(gethash 'Bill addresses)
+</pre>
+</blockquote>
+
+<p>But be careful:
+</p><blockquote>
+<pre>(defun goodTimers (folks)
+   (append folks '(had a good time)))
+(setf list1 (goodTimers '(Trupti Mike and Fran)))
+(setf (seventh list1) 'bad)
+list1
+(goodTimers '(Jon Josephine and Orkan))
+</pre>
+</blockquote>
+</dd></dl>
+
+<p>
+And don't get carried away.  Experienced Lispers use <code>setf</code>
+very infrequently.
+</p>
+
+<p></p><dt>Some useful globals
+
+</dt><dd>
+<table>
+<tbody><tr><th><code>*</code></th><td>The last object returned by the Lisp listener.</td></tr>
+<tr><th><code>**</code></th><td>The second-last object returned by the Lisp listener.</td></tr>
+<tr><th><code>***</code></th><td>The third-last object returned by the Lisp listener.</td></tr>
+<tr><th><code>*package*</code></th><td>The current package.</td></tr>
+<tr><th><code>*print-base*</code></th><td>Numeric base to be used when
+	      printing numbers.</td></tr>
+<tr><th><code>*read-base*</code></th><td>Numeric base to be used when
+	      reading numbers.</td></tr>
+<tr><th><code></code></th><td></td></tr>
+<tr><th><code></code></th><td></td></tr>
+<tr><th><code>tpl:*print-length*</code></th><td>The maximum length of
+		lists printed at the top level; if <code>nil</code>,
+		no limit.</td></tr>
+<tr><th><code>tpl:*print-level*</code></th><td>The maximum depth of
+		lists printed at the top level; if <code>nil</code>,
+		no limit.</td></tr>
+</tbody></table>
+
+<p>
+<font color="red">Exercise</font>: Turn the Lisp listener into a
+	converter from hexidecimal notation to binary notation.  Then
+	put it back.
+</p>
+      <li>
+	<p>
+	  Sequential Execution
+	</p>
+	<p>
+	  Now that we've looked at assignment, we might as well see
+	  the other essential imperative construct -- sequencing.
+	  Actually there's nothing new here, because many Lisp forms
+	  allow a sequence of expressions in the "body" of the form.
+	  This is true of <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_defun.htm">defun</a>,
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_cond.htm">cond</a>,
+	  and <a href="http://www.lispworks.com/reference/HyperSpec/Body/s_let_l.htm">let</a>,
+	  for example.
+	</p>
+	<p>
+	  Remember also that we told you in passing that the sequence
+	  of expressions forming the body of such a construct was
+	  called an "implicit progn".  That's because <a href="http://www.lispworks.com/reference/HyperSpec/Body/s_progn.htm">progn</a>
+	  is the Lisp expression for enclosing an <i>explicit</i>
+	  sequence of expressions.  The result of a progn is the
+	  value of the last expression; it discards the results of
+	  the others.
+	</p>
+	<p>
+	  You won't need to use progn very much, since most of the
+	  usual hangouts for sequences of expressions are already
+	  implicit progns.  However, there are a couple of interesting
+	  variations of progn that are occasionally handy, namely <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_prog1c.htm">prog1
+	  and prog2</a>.
+	</p>
+	<blockquote>
+<pre>(prog1 1 2 3)
+(prog2 1 2 3)
+(progn 1 2 3)
+</pre>
+	</blockquote>
+      </li>
+      <li>
+	<p>
+	  Functions
+	</p>
+	<p>
+	  We already know quite a bit about functions -- at least,
+	  named functions.
+	</p>
+	<ul>
+	  <li>
+	    Named functions are defined by <tt><a href="http://www.lispworks.com/reference/HyperSpec/Body/m_defun.htm">defun</a></tt> forms.
+	  </li>
+	  <li>
+	    Functions are called by evaluating a list form whose first
+	    element is the function name -- <tt>(<i>function-name</i>
+	    <i>argument</i> ...)</tt>.
+	  </li>
+	  <li>
+	    The form <tt>(<a href="http://www.lispworks.com/reference/HyperSpec/Body/s_fn.htm">function</a>
+	    <i>function-name</i>)</tt> can be used to obtain a
+	    function object for a name.
+	    <tt>#'<i>function-name</i></tt> is an abbreviation for
+	    <tt>(function <i>function-name</i>)</tt>.
+	  </li>
+	</ul>
+	<p>
+	  What can we do with function objects in Lisp?
+	</p>
+	<ul>
+	  <li>
+	    Functions can be bound to variables, passed as arguments,
+	    and stored in data structures, just like other Lisp
+	    objects.  Functions with these abilities are often
+	    referred to as "first class functions".
+	  </li>
+	  <li>
+	    Functions can be called on arguments
+	    <i>argument</i><sub>1</sub>
+	    ... <i>argument</i><sub>n</sub> using the form <tt>(<a href="http://www.lispworks.com/reference/HyperSpec/Body/f_funcal.htm">funcall</a>
+	    <i>function</i> <i>argument</i><sub>1</sub>
+	    ... <i>argument</i><sub>n</sub>)</tt>.
+	  </li>
+	  <li>
+	    Functions can be called on arguments
+	    <i>argument</i><sub>1</sub>
+	    ... <i>argument</i><sub>n</sub> using the form <tt>(<a href="http://www.lispworks.com/reference/HyperSpec/Body/f_apply.htm">apply</a>
+	    <i>function</i> <i>argument</i><sub>1</sub>
+	    ... <i>argument</i><sub>m-1</sub>
+	    <i>arguments</i><sub>m...n</sub>)</tt>, where
+	    <i>arguments</i><sub>m...n</sub> is a list of arguments
+	    <i>m</i> through <i>n</i>.
+	  </li>
+	</ul>
+	<p>
+	  Some examples we've already seen:
+	</p>
+	    <blockquote>
+<pre>(member '(a c) '((a b) (a c) (b c)) :test #'equal)
+
+(loop for x in '(a b c d e) by #'cddr do (print x))
+</pre>
+	</blockquote>
+	<p>
+	  Some new examples:
+	</p>
+	<blockquote>
+<pre>(funcall #'cons nil nil)
+
+(setf some-functions (list #'third #'first #'second))
+
+(funcall (first some-functions) '(a b c))
+
+(defun multicall (list-of-functions &amp;rest arguments)
+  "Returns a list of results obtained by calling each function
+in LIST-OF-FUNCTIONS on the ARGUMENTS."
+  (loop for f in list-of-functions
+    collect (apply f arguments)))
+
+(multicall (list #'third #'second #'first) '(a b c))
+</pre>
+	</blockquote>
+	<p>
+	  <font color="red">Exercise</font>: Define a function
+	  <tt>(tree-member <i>item tree</i> &amp;key (key #'identity)
+	  (test #'eql))</tt> that returns the subtree of a labeled
+	  <i>tree</i> rooted at <i>item</i>, like <tt>member</tt> does
+	  for lists.  A labeled tree node is represented as
+	  <tt>(<i>label . children</i>)</tt> where <i>children</i> is
+	  a list of nodes.  Leaf nodes have empty child lists.  An
+	  <i>item</i> is regarded as equal to a label of <i>tree</i>
+	  when <tt>(<i>test item</i> (<i>key label</i>))</tt> is true.
+	  For example:
+	</p>
+	<blockquote>
+<pre>(tree-member "feline"
+  '("animal"
+    ("mammal"
+     ("feline" ("lion") ("tiger") ("kitty"))
+     ("rodent" ("squirrel") ("bunny") ("beaver")))
+    ("bird" ("canary") ("pigeon"))
+    ("reptile" ("turtle") ("snake")))
+  :test #'string=)
+==&gt; ("feline" ("lion") ("tiger") ("kitty"))
+</pre>
+	</blockquote>
+<!--
+  (defun tree-member (item tree &key (key #'identity) (test #'eql))
+  "Returns the subtree of a labeled TREE rooted at ITEM.
+ITEM is regarded as equal to a label L of TREE
+when (TEST ITEM (KEY L)) is true."
+  (if (funcall test item (funcall key (first tree)))
+    tree
+    (loop for child in (rest tree)
+      thereis (tree-member item child :key key :test test))))
+-->
+	<p>
+	  Since function objects can be used so flexibly in Lisp, it
+	  makes sense that we should be able to create a function
+	  without having to define a named function; that is, use a
+	  throwaway function instead of a permanent defun.  That's
+	  what <a href="http://www.lispworks.com/reference/HyperSpec/Body/s_lambda.htm">lambda</a>
+	  is for.  A "lambda expression" can be used in place of a
+	  function name to obtain a function.
+	</p>
+	<blockquote>
+<pre>#'(lambda (x) (+ x 1))
+
+((lambda (x) (+ x 1)) 42)
+
+(funcall #'(lambda (x) (+ x 1)) 42)
+</pre>
+	</blockquote>
+	<p>
+	  Note that
+	</p>
+	<p>
+	  <tt>((lambda <i>lambda-list . body</i>) . <i>arguments</i>)</tt> ==
+	  <tt>(funcall #'(lambda <i>lambda-list . body</i>)
+	  . <i>arguments</i>)</tt>.
+	</p>
+	<p>
+	  In fact, the <tt>function</tt>
+	  form isn't really necessary, because <tt>lambda</tt> is set
+	  up so that
+	</p>
+	<p>
+	  <tt>(lambda <i>lambda-list . body</i>)</tt> == <tt>#'(lambda
+	  <i>lambda-list . body</i>)</tt>.
+	</p>
+	<p>
+	  Lambda functions are actually <i>closures</i>, which means
+	  that they comprise not only their code, but also their
+	  lexical environment.  So they "remember" variable bindings
+	  established at the time of their creation.
+	</p>
+	<blockquote>
+<pre>(defun make-adder (delta)
+  (lambda (x) (+ x delta)))
+
+(setf f (make-adder 13))
+(funcall f 42)
+
+(funcall (make-adder 11) (funcall (make-adder 22) 33))
+</pre>
+	</blockquote>
+	<p>
+	  <font color="red">Exercise</font>: Define a function
+	  <tt>(compose <i>f g</i>)</tt> that composes functions
+	  <i>f</i> and <i>g</i>.  Assume that <i>f</i> composed with
+	  <i>g</i> is defined as (<i>f • g</i>)(x) =
+	  <i>f</i>(<i>g</i>(<i>x</i>)).  Try <tt>(funcall (compose
+	  #'char-upcase #'code-char) 100)</tt>.
+	</p>
+<!--
+(defun compose (f g)
+  (lambda (x) (funcall f (funcall g x))))
+
+(funcall (compose #'char-upcase #'code-char) 100)
+-->
+      </li>
+      <li>
+	<p>
+	  Mapping
+	</p>
+	<p>
+	  It is common to want to apply a function to every element of
+	  a list and obtain the results of each of the calls.  This
+	  operation is called <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_mapc_.htm">mapping</a>.
+	  Lambda expressions tend to be quite useful in mapping.
+	</p>
+	<blockquote>
+<pre>(mapcar #'(lambda (s) (string-capitalize (string s))) '(fee fie foe fum))
+
+(maplist #'reverse '(a b c d e))
+
+(mapcar #'(lambda (s n) (make-list n :initial-element s))
+	'(a b c d e) '(5 2 3 7 11))
+
+(mapcan #'(lambda (s n) (make-list n :initial-element s))
+	'(a b c d e) '(5 2 3 7 11))
+
+(mapcon #'reverse '(a b c d e))
+</pre>
+	</blockquote>
+      </li>
+      <li>
+	<p>
+	  Sequences
+	</p>
+	<p>
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/17_.htm">Sequence</a>
+	  is the common superclass of lists and vectors (i.e.,
+	  one-dimensional arrays) -- one-dimensional ordered
+	  collections of objects.  Sequences also support mapping.
+	</p>
+	<blockquote>
+<pre>(map 'list #'(lambda (c) (position c "0123456789ABCDEF")) "2BAD4BEEF")
+
+(map 'string #'(lambda (a b) (if (char&lt; a b) a b))
+     "David Pierce" "Stu Shapiro")
+</pre>
+	</blockquote>
+	<p>
+	  Here are examples of other useful <a href="http://www.lispworks.com/reference/HyperSpec/Body/17_a.htm">functions
+	  on sequences</a>.  Many of these take functions as
+	  arguments.
+	</p>
+	<blockquote>
+<pre>(count-if #'oddp '(2 11 10 13 4 11 14 14 15) :end 5)
+
+(setf x "David Pierce")
+(sort x #'(lambda (c d)
+	    (let ((m (char-code c)) (n (char-code d)))
+	      (if (oddp m)
+                (if (oddp n) (&lt; m n) t)
+	        (if (oddp n) nil (&lt; m n))))))
+;; note that SORT does destructive modification
+x
+
+(find-if
+ #'(lambda (c) (= (* (first c) (first c)) (second c)))
+ '((1 3) (3 5) (5 7) (7 9) (2 4) (4 6) (6 8)))
+
+(position-if
+ #'(lambda (c) (= (* (first c) (first c)) (second c)))
+ '((1 3) (3 5) (5 7) (7 9) (2 4) (4 6) (6 8)))
+
+(reduce #'+ '(1 2 3 4))
+(reduce #'list '(a b c d e))
+(reduce #'list '(a b c d e) :initial-value 'z)
+(reduce #'list '(a b c d e) :from-end t)
+(reduce #'append '((a b) (c d) (e f g) (h) (i j k)))
+</pre>
+	</blockquote>
+	<p>
+	  <font color="red">Exercise</font>: Suppose you are given a
+	  list of headings for the columns of a table -- for example,
+	  <tt>("Function " "Arguments " "Return values " "Author "
+	  "Version ")</tt>.  The size of the columns are determined by
+	  the length of these headings.  Write an expression to
+	  compute the number of spaces to insert to place text into
+	  the <i>n</i><sup>th</sup> column of the table.
+	</p>
+      </li>
+
+      <li>
+	<p>
+	  Input/Output
+	</p>
+	<p>
+	  I/O in Lisp is based on <a href="http://www.lispworks.com/reference/HyperSpec/Body/21_aa.htm">streams</a>.
+	  A stream is a source or destination for characters or bytes.
+	  For example, streams can be directed to or from files,
+	  strings, or the terminal.  Output functions (e.g.,
+	  <tt>format</tt> and <tt>print</tt>) and input functions
+	  (e.g., <tt>read</tt>) normally take stream arguments;
+	  although frequently the stream argument is optional.
+	  Several streams are available when Lisp starts up, including
+	  <tt>*standard-input*</tt> and <tt>*standard-output*</tt>.
+	  If the session is interactive, both of these are the same as
+	  <tt>*terminal-io*</tt>.
+	</p>
+	<p>
+	  The basic output functions for streams are <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_wr_cha.htm">write-char</a>
+	  and <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_wr_stg.htm">write-line</a>.
+	  The basic input functions are <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_rd_cha.htm">read-char</a>
+	  and <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_rd_lin.htm">read-line</a>.
+	</p>
+	<p>
+	  File streams are created by the <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_open.htm">open</a>
+	  function.  However, it is more convenient to use the <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_w_open.htm">with-open-file</a>
+	  form, which ensures that the file is closed regardless of
+	  whether control leaves normally or abnormally.
+	</p>
+	<blockquote>
+<pre>(with-open-file (output-stream "/tmp/drpierce.txt" ; put your name here
+                 :direction :output)
+  (write-line "I like Lisp" output-stream))
+
+(with-open-file (input-stream "/tmp/drpierce.txt" :direction :input)
+  (read-line input-stream))
+
+(with-open-file (output-stream "/tmp/drpierce.txt" 
+                 :direction :output
+                 :if-exists :supersede)
+  (write-line "1. Lisp" output-stream))
+
+(with-open-file (output-stream "/tmp/drpierce.txt" 
+                 :direction :output
+                 :if-exists :append)
+  (write-line "2. Prolog" output-stream)
+  (write-line "3. Java" output-stream)
+  (write-line "4. C" output-stream))
+
+;; read lines until eof
+(with-open-file (input-stream "/tmp/drpierce.txt" :direction :input)
+  (loop for line = (read-line input-stream nil nil)
+    while line
+    collect line))
+</pre>
+	</blockquote>
+	<p>
+	  Similarly, a string stream is usually manipulated using <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_w_out_.htm">with-output-to-string</a>
+	  and <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_w_in_f.htm">with-input-from-string</a>.
+	</p>
+	<blockquote>
+<pre>(with-output-to-string (output-stream)
+  (loop for c in '(#\L #\i #\s #\p)
+    do (write-char c output-stream)))
+
+(with-input-from-string (input-stream "1 2 3 4 5 6 7 8 9")
+  (loop repeat 10 collect (read-char input-stream)))
+</pre>
+	</blockquote>
+	<p>
+	  Although the basic I/O functions are available, you will
+	  normally invoke the higher-level capabilities of the <a href="http://www.lispworks.com/reference/HyperSpec/Body/22_.htm">Lisp
+	  printer</a> and the <a href="http://www.lispworks.com/reference/HyperSpec/Body/23_.htm">Lisp
+	  reader</a>.  We discuss the printer and reader in the
+	  following sections.
+	</p>
+	<p>
+	  Streams are closed using <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_close.htm">close</a>.
+	  Other stream functions include <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_stmp.htm">streamp</a>,
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_open_s.htm">open-stream-p</a>,
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_listen.htm">listen</a>,
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_peek_c.htm">peek-char</a>,
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_clear_.htm">clear-input</a>,
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_finish.htm">finish-output</a>.
+	</p>
+      </li>
+      <li>
+	<p>
+	  The Printer
+	</p>
+	<p>
+	  The standard entry point into the printer is the function <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_wr_pr.htm">write</a>;
+	  and <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_wr_pr.htm">prin1</a>,
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_wr_pr.htm">princ</a>,
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_wr_pr.htm">print</a>,
+	  and <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_wr_pr.htm">pprint</a>
+	  are wrappers for certains settings of <tt>write</tt>.  The
+	  optional output stream argument of each of these functions
+	  defaults to standard output.  Another useful set of print
+	  functions is <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_wr_to_.htm">write-to-string</a>,
+	  <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_wr_to_.htm">prin1-to-string</a>,
+	  and <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_wr_to_.htm">princ-to-string</a>.
+	</p>
+	<blockquote>
+<pre>(setf z
+  '("animal"
+    ("mammal"
+     ("feline" ("lion") ("tiger") ("kitty"))
+     ("ursine" ("polar bear") ("teddy bear"))
+     ("rodent" ("squirrel") ("bunny") ("beaver")))
+    ("bird" ("canary") ("pigeon"))
+    ("reptile" ("turtle") ("snake"))))
+(prin1 z) ;; same as (write z :escape t)
+(princ z) ;; same as (write z :escape nil :readably nil)
+(write z :escape nil :pretty t :right-margin 40)
+(write-to-string z :escape nil :pretty nil)
+</pre>
+	</blockquote>
+	<p>
+	  A more sophisticated and flexible aspect of the printer is
+	  the <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_format.htm#format">format</a>
+	  function -- <tt>(format <i>destination</i>
+	  <i>control-string</i> <i>argument</i>...)</tt>.  This
+	  function consults the <i>control-string</i> to determine how
+	  to format the remaining <i>argument</i>s (if any) and
+	  transfers the output to <i>destination</i>.
+	</p>
+	<table border="1">
+	    <tbody><tr style="background-color: #CCCCCC">
+	      <td>
+		If <i>destination</i> is:
+	      </td>
+	      <td>
+		then the output:
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<tt>t</tt>
+	      </td>
+	      <td>
+		appears on the standard output
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		a stream
+	      </td>
+	      <td>
+		appears on that stream
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<tt>nil</tt>
+	      </td>
+	      <td>
+		is returned as a string
+	      </td>
+	    </tr>
+	</tbody></table>
+	<p>
+	  The control string consists of simple text, with embedded
+	  format control directives.  Some of the simpler, more
+	  commonly used directives are summarized below.
+	</p>
+	<table border="1">
+	    <tbody><tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cdc.htm">~W</a>
+	      </td>
+	      <td>
+		format as if by <tt>write</tt>; any kind of object;
+		obey every printer control variable
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cdb.htm">~S</a>
+	      </td>
+	      <td>
+		format as if by <tt>prin1</tt>; any kind of object;
+		"standard" format
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cda.htm">~A</a>
+	      </td>
+	      <td>
+		format as if by <tt>princ</tt>; any kind of object;
+		human readable ("asthetic") format
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cbb.htm">~D</a> (or <a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cbc.htm">B</a>, <a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cbd.htm">O</a>, <a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cbe.htm">X</a>)
+	      </td>
+	      <td>
+		decimal (or binary, octal, hex) integer format
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cca.htm">~F</a> (or <a href="http://www.lispworks.com/reference/HyperSpec/Body/22_ccb.htm">E</a>, <a href="http://www.lispworks.com/reference/HyperSpec/Body/22_ccc.htm">G</a>, <a href="http://www.lispworks.com/reference/HyperSpec/Body/22_ccd.htm">$</a>)
+	      </td>
+	      <td>
+		fixed-format (or exponential, general, monetary)
+		floating-point format
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cgd.htm">~{</a><i>control-string</i>~}
+	      </td>
+	      <td>
+		format a list; repeatedly uses <i>control-string</i>
+		to format elements of the list until the list is
+		exhausted
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cab.htm">~%</a>
+	      </td>
+	      <td>
+		print a newline
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cac.htm">~&amp;</a>
+	      </td>
+	      <td>
+		print a newline unless already at the beginning of the line
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cae.htm">~~</a>
+	      </td>
+	      <td>
+		print a (single) tilde
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cga.htm">~*</a>
+	      </td>
+	      <td>
+		ignore the corresponding argument
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="http://www.lispworks.com/reference/HyperSpec/Body/22_cic.htm">~<em>newline</em></a>
+	      </td>
+	      <td>
+		ignore the newline and any following whitespace
+		(allows long format control strings to be split across
+		multiple lines)
+	      </td>
+	    </tr>
+	</tbody></table>
+	<p>
+	  Many format control directives accept "arguments" --
+	  additional numbers or special characters between the ~ and
+	  the directive character.  For example, a common argument
+	  allowed by many directives is a column width.  See the
+	  documentation for individual directives for details about
+	  their arguments.  In place of an "argument" in the control
+	  string, the character <tt>v</tt> indicates the next
+	  <tt>format</tt> argument; while the character <tt>#</tt>
+	  denotes the number of remaining <tt>format</tt> arguments.
+	</p>
+	<blockquote>
+<pre>;; format an invoice
+(loop for (code desc quant price) in
+  '((42 "House" 1 110e3) (333 "Car" 2 15000.99) (7 "Candy bar" 12 1/4))
+  do (format t "~3,'0D ~10A ~3D @ $~10,2,,,'*F~%" code desc quant price))
+
+(defun char-* (character number)
+  "Returns a string of length NUMBER filled with CHARACTER."
+  (format nil "~v,,,vA" number character ""))
+;; but (make-string number :initial-element character) is better
+
+;; format an invoice again, one-liner
+(format t "~:{~3,'0D ~10A ~3D @ $~10,2,,,'*F~%~}"
+ '((42 "House" 1 110e3) (333 "Car" 2 15000.99) (7 "Candy bar" 12 1/4)))
+
+;; comma-separated list
+(loop for i from 1 to 4 do
+  (format t "~{~A~^, ~}~%" (subseq '(1 2 3 4) 0 i)))
+
+;; comma-separated list again, but cleverer
+;; (using things I didn't mention above :-)
+(loop for i from 1 to 4 do
+  (format t "~{~A~#[~; and ~:;, ~]~}~%" (subseq '(1 2 3 4) 0 i)))
+
+(loop for i from 1 to 4 do
+  (format t "~{~A~#[~;~:;,~]~@{~#[~; and ~A~:; ~A,~]~}~}~%"
+	  (subseq '(1 2 3 4) 0 i)))
+
+;; format an invoice again, but cleverer
+;; with commas in the prices
+(loop for (code desc quant price) in
+  '((42 "House" 1 110e3) (333 "Car" 2 15000.99) (7 "Candy bar" 12 1/4))
+  do (format t "~3,'0d ~10a ~3d @ ~{$~7,'*:D~3,2F~}~%"
+	     code desc quant (multiple-value-list (floor price))))
+</pre>
+	</blockquote>
+	<p>
+	  <font color="red">Exercise</font>: Define
+	  <tt>(print-properties <i>plist</i> &amp;optional
+	  <i>stream</i>)</tt> to print a propery list to <i>stream</i>
+	  as shown below.  The <i>stream</i> should default to
+	  <tt>*standard-output*</tt>.
+	</p>
+	<blockquote>
+<pre>(print-properties '(course CSE-202 semester "Summer 2004"
+		    room "Baldy 21" days "MR" time (10.30 11.30)))
+--&gt;
+course=CSE-202
+semester="Summer 2004"
+room="Baldy 21"
+days="MR"
+time=(10.3 11.3)
+</pre>
+	</blockquote>
+<!--
+(defun print-properties (plist &optional (stream *standard-output*))
+  ;; format a property list
+  (format stream "~{~A=~S~%~}" plist))
+-->
+      </li>
+      <li>
+	<p>
+	  The Reader
+	</p>
+	<p>
+	  The standard entry point into the reader is the function <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_rd_rd.htm">read</a>.
+	  The function <a href="http://www.lispworks.com/reference/HyperSpec/Body/f_rd_fro.htm">read-from-string</a>
+	  is also often convenient.
+	</p>
+	<blockquote>
+<pre>(with-input-from-string (input-stream "(a b c)")
+  (read input-stream))
+
+(with-input-from-string (input-stream "5 (a b) 12.3 #\\c \"foo\" t")
+  (loop repeat (read input-stream)
+    do (describe (read input-stream))))
+</pre>
+	</blockquote>
+	<p>
+	  Below is a reader function for the property list format we
+	  used above.
+	</p>
+	<blockquote>
+<pre>(defun read-properties (&amp;optional (input-stream *standard-input*))
+  "Reads a property list from INPUT-STREAM.
+The input should have one property-value pair on each line,
+in the form PROPERTY-NAME=VALUE.  The PROPERTY-NAME should
+be a Lisp symbol.  The VALUE may be any readable Lisp value."
+  (loop for line = (read-line input-stream nil nil)
+    while line
+    for pos = (position #\= line)
+    unless pos do (error "bad property list format ~s" line)
+    collect (read-from-string line t nil :end pos)
+    collect (read-from-string line t nil :start (1+ pos))))
+
+(setf p1 '(course CSE-202 semester "Summer 2004"
+	   room "Baldy 21" days "MR" time (10.30 11.30)))
+(setf p2 (with-output-to-string (stream)
+	   (print-properties p1 stream)))
+(setf p3 (with-input-from-string (stream p2)
+           (read-properties stream)))
+(equal p1 p3)
+</pre>
+	</blockquote>
+	<p>
+	  In practice, we might want more error checking, because
+	  <tt>read-properties</tt> happily accepts input like:
+	</p>
+	<blockquote>
+<pre>(with-input-from-string (stream "hello world = 1 2 3")
+  (read-properties stream))
+</pre>
+	</blockquote>
+	<p>
+	  However, this entire example is a bit contrived, since if
+	  you wanted to store a property list or association list in a
+	  file (e.g., as a config file for your application), you
+	  would simply write the entire list to the file instead of
+	  formatting the data in some unreadable way.  Then you could
+	  simply use the Lisp reader to reconstruct the entire list.
+	</p>
+	<p>
+	  We will be able to work more meaningful exercises of
+	  printing and reading after we talk about Lisp "objects" --
+	  that is, class instances.  Since instances do not have a
+	  readable print syntax of their own, a common task is to
+	  concoct a readable syntax using readable objects such as
+	  lists so that instances can be written out to files and read
+	  back in.  For now, the following exercise is hopefully a
+	  little more meaningful than the property list example.
+	</p>
+	<p>
+	  <font color="red">Exercise</font>: We decide to use a
+	  space-efficient file format for large, sparse arrays.  The
+	  format is: <tt><i>dimensions</i> <i>default-value</i>
+	  <i>index</i><sub>1</sub> <i>value</i><sub>1</sub>
+	  <i>index</i><sub>2</sub> <i>value</i><sub>2</sub> ...</tt>.
+	  For example:
+	</p>
+	<blockquote>
+<pre>(100 100) 0
+(30 30) 30
+(60 60) 60
+</pre>
+	</blockquote>
+	<p>
+	  Write a function <tt>(read-sparse-array &amp;optional
+	  <i>input-stream</i>)</tt> to read the sparse array format
+	  and construct the array.
+	</p>
+<!--
+(defun read-sparse-array (&optional (input-stream *standard-input*))
+  (let* ((dimensions (read input-stream))
+	 (default-value (read input-stream))
+	 (array (make-array dimensions :initial-element default-value)))
+    (loop
+      for index = (read input-stream nil nil)
+      while index
+      for value = (read input-stream)
+      do (setf (apply #'aref array index) value))
+    array))
+-->
+	<p>
+	  <font color="red">Mini-Project</font>: Write an outline
+	  formatter.  Assume that the input is a sequence of lines;
+	  each line begins with <i>n</i> spaces (<i>n</i> ≥ 0) to
+	  indicated that it is a heading at outline level <i>n</i>.
+	  For example, here is an outline of the lecture notes on I/O:
+	</p>
+	<blockquote>
+<table border="1" width="50%"><tbody><tr><td>
+<pre>Input/output
+ Streams
+  File streams
+  String streams
+ Stream input and output functions
+ Other stream functions
+The printer
+ Print functions
+ Format
+  Destinations
+  Control directives
+  Examples
+The reader
+</pre>
+</td></tr></tbody></table>
+	</blockquote>
+	<p>
+	  Read an outline from an input stream, automatically number
+	  and indent it, and print it to an output stream.  Below is
+	  one possible output format.
+	</p>
+	<blockquote>
+<table border="1" width="50%"><tbody><tr><td>
+<pre>   I. Input/output
+       A. Streams
+           1. File streams
+           2. String streams
+       B. Stream input and output functions
+       C. Other stream functions
+  II. The printer
+       A. Print functions
+       B. Format
+           1. Destinations
+           2. Control directives
+           3. Examples
+ III. The reader
+</pre>
+</td></tr></tbody></table>
+	</blockquote>
+	<p>
+	  Your outline formatter should be guided by an outline format
+	  containing a list (<i>F</i><sub>0</sub> <i>F</i><sub>1</sub>
+	  ...).  Each <i>F<sub>n</sub></i> is a list of the form
+	  (<i>width</i> <i>labeler</i>), where <i>width</i> is the
+	  width of a label at outline level <i>n</i> and
+	  <i>labeler</i> is a function that takes a whole number and
+	  returns a label string in the style of level <i>n</i>.  For
+	  example, the outline above was formatted using an outline
+	  format that begins as follows:
+	</p>
+	<blockquote>
+<pre>(defparameter *outline-format-1*
+    (list
+     (list 6 #'(lambda (n) (format nil "~@R." n)))
+     ...
+</pre>
+	</blockquote>	
+	<p>
+	  Labels of level 0 are 6 characters wide, and the labeler
+	  function produces the roman numeral labels shown above.
+	  I'll leave it to you to determine what the rest of the
+	  entries should be to produce the rest of output shown above.
+	</p>
+	<p>
+	  First, write a function <tt>(read-outline &amp;optional
+	  <i>input-stream</i>)</tt> that reads the indented outline
+	  and constructs a list of the all the lines and their level.
+	</p>
+	<blockquote>
+<pre>((0 "Input/output")
+ (1 "Streams")
+ (2 "File streams")
+ (2 "String streams")
+ (1 "Stream input and output functions")
+ (1 "Other stream functions")
+ (0 "The printer")
+ (1 "Print functions")
+ (1 "Format")
+ (2 "Destinations")
+ (2 "Control directives")
+ (2 "Examples")
+ (0 "The reader"))
+</pre>
+	</blockquote>
+	<p>
+	  Second, write a function <tt>(print-outline <i>outline</i>
+	  <i>outline-format</i> &amp;optional <i>output-stream</i>)</tt>
+	  to format this list according to <i>outline-format</i>.
+	</p>
+      </li>
+
+<p></p><li>CLOS
+<dl>
+<dt>Introduction
+
+</dt><dd> The <b>C</b>ommon <b>L</b>isp <b>O</b>bject <b>S</b>ystem (see
+the Common Lisp HyperSpec Chapter on <a href="http://www.lispworks.com/reference/HyperSpec/Body/07_.htm">Objects</a>)
+provides for the definition of classes (with multiple inheritance) and
+generic (polymorphic) functions.
+
+<p>We are only going to give a simplified introduction to CLOS.  There
+are many details we will not cover.
+
+</p><p>Many (but not all) predefined Common Lisp types are also predefined
+classes.  These are:<br>
+<img src="UB%20Lisp_files/classes.gif"><br>
+(Find the two classes with multiple parents.)
+
+</p><p>For a complete dag of the predefined classes available in ACL,
+select the menu item </p><center><code>ACL=&gt;Composer=&gt;Start
+Composer</code></center> and then select the menu item
+<center><code>ACL=&gt;Composer=&gt;CLOS=&gt;Show class
+subclasses</code></center> and enter <code>t</code> in the minibuffer.
+
+
+
+<p></p></dd><dt>
+Generic Functions<br>
+
+</dt><dd>A generic function is a collection of methods with the same name,
+and "congruent" (compatible) lambda lists (approximately: the same
+number of each kind of parameter; see the Hyperspec <a href="http://www.lispworks.com/reference/HyperSpec/Body/07_fd.htm">Chap. 7.6.4</a>
+for all the details), but required parameters may specify the class of
+their actual arguments.
+
+<p>Example 1: Let's define a generic function that will cause some Lisp
+objects to identify their class:
+</p><blockquote>
+<pre>(defmethod id ((x number))
+    "Prints a message identifying numbers."
+    "I'm a number.")
+
+(defmethod id ((x sequence))
+    "Prints a message identifying sequences."
+    "I'm a sequence.")
+</pre>
+</blockquote>
+
+<font color="red">Test id</font> for several numbers and sequences of
+different subtypes.<br>
+<font color="red">Test id</font> for several objects that are neither
+numbers nor sequences.
+
+<p>As you would expect, the applicable method for the lowest possible
+class is the one that is used.<br>
+
+<font color="red">Exercise:</font> add an <code>id</code> method for
+some subclass of number or sequence, and test that it is used when
+appropriate.
+
+</p><p>When a class <i>C&nbsp;</i> has two parent classes, and there is a
+generic function with a method for each one, which one is used?  That
+is determined by <i>C </i>'s <b>class precedence list</b>.  To see the
+class precedence list of some class, select the menu item
+</p><center><code>ACL=&gt;Composer=&gt;CLOS=&gt;Inspect class</code></center>
+and enter the name of the class in the minibuffer.
+
+<p><font color="red">Exercise:</font> Find a class <i>C&nbsp;</i> in the
+above dag that has two parent classes.  Define an <code>id</code>
+method for each parent class.  Which method is used for an object of
+class <i>C </i>?  Inspect class <i>C </i>, and check that its class
+precedence list is used correctly.
+
+</p><p>Example 2: Define a <code>&lt;</code> relation among numbers and
+symbols, so that lists containing mixed numbers and symbols may be
+ordered lexicographically.  Numbers should be ordered by
+<code>cl:&lt;</code>, symbols by <code>string&lt;</code>, and any
+number should be <code>&lt;</code> than any symbol.<br>
+Solution:
+</p><blockquote>
+<pre>(defpackage :closExercises
+  (:shadow cl:&lt;))
+
+(in-package :closExercises)
+
+(defmethod &lt; ((n1 number) (n2 number))
+  "Returns t if the number n1 is less than the number n2; else nil."
+  (cl:&lt; n1 n2))
+
+(defmethod &lt; ((s1 symbol) (s2 symbol))
+  "Returns t if the symbol s1 is less than the symbol s2; else nil."
+  (string&lt; s1 s2))
+
+(defmethod &lt; ((n number) (s symbol))
+  "Returns t, because numbers are less than symbols."
+  t)
+
+(defmethod &lt; ((s symbol) (n number))
+  "Returns nil, because symbols are not less than numbers."
+  nil)
+
+(defmethod &lt; ((list1 list) (list2 list))
+  "Returns t if list1 is less than list2; nil otherwise."
+  ;; Lists are ordered lexicographically according to their members.
+  (cond
+   ((endp list1) list2)
+   ((endp list2) nil)
+   ((&lt; (first list1) (first list2)) t)
+   ((&lt; (first list2) (first list1)) nil)
+   (t (&lt; (rest list1) (rest list2)))))
+</pre>
+<font color="red">Exercise</font>: Test this.
+</blockquote>
+
+A generic function may be used in the same ways a regular function is
+	used.  For example, we may define <code>&gt;</code> as
+	follows:
+<blockquote>
+<pre><i>;;; First shadow cl:&gt;.</i>
+(shadow 'cl:&gt;)
+
+<i>;;; Then define &gt;.</i>
+(defun &gt; (x y)
+  "Returns t if x is greater than y; nil Otherwise."
+  (&lt; y x))
+</pre>
+</blockquote>
+
+Notice that <code>&gt;</code> automatically handles the same classes
+as <code>&lt;</code> does.
+
+
+<p>Now, let's redo <code>&lt;</code> using <code>defgeneric</code>
+and adding strings and lists.  Strings should sort after symbols;
+lists should sort after strings.  That is, any number should be
+<code>&lt;</code> any symbol, any symbol should be <code>&lt;</code>
+any string, any string should be <code>&lt;</code> any list, numbers
+should be ordered by <code>cl:&lt;</code>, symbols and strings should
+be ordered by <code>string&lt;</code>, and lists should be ordered as
+shown above.  (Do we really need to write 16 different methods?)<br>
+Solution:
+</p><blockquote>
+<pre>(defpackage :closExercises
+  (:shadow cl:&lt; cl:&gt;))
+
+(in-package :closExercises)
+
+(defgeneric &lt; (obj1 obj2)
+  (:documentation "Returns t if obj1 sorts as less than obj2; nil otherwise.")
+
+  (:method ((n1 number) (n2 number))
+	   "Returns t if the number n1 is less than the number n2
+                      using cl:&lt;; else nil."
+	   (cl:&lt; n1 n2))
+
+  (:method ((s1 symbol) (s2 symbol))
+	   "Returns t if the symbol s1 is less than the symbol s2
+                      using string&lt;; else nil."
+	   (string&lt; s1 s2))
+  
+  (:method ((s1 string) (s2 string))
+	   "Returns t if the string s1 is less than the string s2
+                      using string&lt;; else nil."
+	   (string&lt; s1 s2))
+
+  (:method ((list1 list) (list2 list))
+	   "Returns t if list1 is lexicographically less than list2; nil otherwise."
+	   ;; Lists are ordered lexicographically according to their members.
+	   (cond
+	    ((endp list1) list2)
+	    ((endp list2) nil)
+	    ((&lt; (first list1) (first list2)) t)
+	    ((&lt; (first list2) (first list1)) nil)
+	    (t (&lt; (rest list1) (rest list2)))))
+  
+  (:method ((obj1 t) (obj2 t))
+	   "Returns t if ojb1 is less than obj2 according to their types."
+	   (check-type obj1 (or number symbol string list))
+	   (check-type obj2 (or number symbol string list))
+	   (member obj2
+		   (member obj1 '(number symbol string list) :test #'typep)
+		   :test #'typep)))
+
+(defun &gt; (x y)
+  "Returns t if x is greater than y; nil Otherwise."
+  (&lt; y x))
+</pre>
+New concept: <a href="http://www.franz.com/support/documentation/8.1/ansicl/dictentr/check-ty.htm"><code>check-type</code></a>.
+
+<p><font color="red">Exercises</font>:
+</p><ol>
+<li> Test this.
+
+<p></p></li><li> Add characters,
+to sort between numbers and symbols, and, among themselves using
+<code>char&lt;</code>.
+</li></ol>
+</blockquote>
+
+<p></p></dd><dt>Classes
+
+</dt><dd>An object (an instance of a class) is created by <code>(<a href="http://www.lispworks.com/reference/HyperSpec/Body/f_mk_ins.htm#make-instance">make-instance</a>
+<i>class ...</i>)</code>.
+
+<p>CLOS classes are defined by use of the macro <a href="http://www.lispworks.com/reference/HyperSpec/Body/m_defcla.htm#defclass">defclass</a>.
+(See also the HyperSpec chapter on <a href="http://www.lispworks.com/reference/HyperSpec/Body/04_cb.htm">Defining
+Classes</a>.)
+
+</p><p>A class may have up to three class-options, the only one of which
+we will use is <code>:documentation</code>.
+
+</p><p>A class may also have a set of slots, each of
+which has a number of attributes specified by slot-options, which are:
+</p><ul>
+<li><code>:documentation</code> A documentation string.
+
+<p></p></li><li><code>:allocation</code> Either <code>:instance</code>, meaning
+that this is a slot local to each instance, or <code>:class</code>,
+meaning that this slot is shared among instances.
+
+<p></p></li><li><code>:initarg</code> A symbol used like a keyword in
+<code>make-instance</code> to provide the value of this slot.
+
+<p></p></li><li><code>:initform</code> A form, evaluated when each instance is
+created, to give the value for this slot.
+
+<p></p></li><li><code>:reader</code> A symbol which is made the name of a
+method used to get the value of this slot for each instance.
+
+<p></p></li><li><code>:writer</code> A symbol which is made the name of a
+method used to set the value of this slot for each instance.  If
+<code><i>setSlot</i></code> is the symbol, it is used by evaluating
+<code>(<i>setSlot value instance</i>)</code>
+
+<p></p></li><li><code>:accessor</code> A symbol which is made the name of a
+<code>setf</code>able method used to get or set the value of this slot
+for each instance.
+
+<p></p></li><li><code>:type</code> The permitted type of values of this slot.
+ACL seems not to enforce this.
+</li></ul>
+
+<p>Even if neither a <code>:writer</code> nor an
+<code>:accessor</code> is provided for a slot, one my set or change
+the value of a slot by evaluating
+</p><blockquote>
+<pre>(setf (slot-value <i>object slot-name</i>) <i>value</i>)
+</pre>
+</blockquote>
+
+<p> One may use<br>
+</p><blockquote>
+<pre>(defmethod initialize-instance :after ((<i>object class</i>) &amp;rest args)
+    ...)
+</pre></blockquote>
+to cause the initialization of some slots of an instance after the
+slots specified by <code>:initarg</code> and <code>:initform</code>
+have been set.
+
+<p>As an example, we will define some classes of weighable solids and a
+class of scales on which to weigh them.  These are defined in the file
+	  <a href="http://www.cse.buffalo.edu/%7Eshapiro/Courses/CSE202/Summer2004/solids.cl">solids.cl</a>.
+
+</p><p><font color="red">Exercises</font>:
+</p><ol>
+<li> Copy <a href="http://www.cse.buffalo.edu/%7Eshapiro/Courses/CSE202/Summer2004/solids.cl">solids.cl</a> into a file and test it.
+
+<p></p></li><li> Use Composer's inspector to inspect the scale and some of the
+objects on it.
+
+<p></p></li><li> Add a slot to the class of scales that is a list of the
+objects on the scale.  Make sure that it is properly maintained.
+
+<p></p></li><li> Add a method, <code>(removeObject <i>scale object</i>)</code>
+to remove an object from a scale.  All slots should be maintained
+properly, but <code>removeObject</code> should cause an error if the
+object to be removed is not on the scale.
+
+<p></p></li><li> Again use Composer's inspector to inspect a scale with some
+objects on it.  Note that left-clicking on an object will cause
+Composer to bring up an inspector window on that object.
+</li></ol>
+
+</dd></dl>
+
+</li></dd></li></ol>
+</dd></dl>
+
+<!--
+Advanced topics:
+macros
+formatted output
+emacs lisp
+logical pathnames
+pretty printing
+read tables
+acl debugger
+acl profiler
+-->
+
+<p></p><center>Copyright © 2004 by Stuart C. Shapiro &amp; David
+R. Pierce. All rights reserved.</center>
+
+<hr>
+<h4>
+<address><a href="http://www.cse.buffalo.edu/%7Eshapiro/">Stuart C. Shapiro</a>
+&lt;<a href="mailto:shapiro@cse.buffalo.edu?subject=Lisp%20course">shapiro@cse.buffalo.edu</a>&gt;</address>
+
+<address><a href="http://www.cse.buffalo.edu/%7Edrpierce/">David R. Pierce</a>
+&lt;<font color="blue">drpierce at cse.buffalo.edu</font>&gt;</address>
+
+<!-- Created: Thu May 13 14:59:42 EDT 2004 -->
+<!-- hhmts start -->
+Last modified: Thu Feb  4 11:37:30 EST 2010
+<!-- hhmts end -->
+  
+
+</h4></body></html>
