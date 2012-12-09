@@ -2,7 +2,7 @@
 
 *Факультет компьютерных и инженерных наук*
 
-#+TITLE: Краткий курс Common Lisp
+#+TITLE: Краткий курс по Common Lisp'у
 
 --------------
 
@@ -23,7 +23,6 @@
      - On-line [[http://www.cse.buffalo.edu/%7Eshapiro/Courses/CSE202/Notes/][Course Notes]] from CSE202 of Fall 2000 to accompany the
        book [[http://www.cse.buffalo.edu/%7Eshapiro/Commonlisp/][Common Lisp: An Interactive Approach]]. (Note: this course
        is not currently operating)
-     - 
 
   2. Common Lisp'овые средства разработки
 
@@ -74,17 +73,18 @@
        4. Выбор текстового представления объекта
        5. Вывод
 
-     - Два сюрприза:
+     - Три сюрприза:
 
        1. большие числа (bignums)
        2. дроби (ratios)
+       3. комплексные числа
 
   5. Неатомные выражения
 
      - Кембриджская префиксная нотация
 
-  6. Emacs'овый буфер =*scratch* находится в режиме исполнения
-     Lisp'ового кода= Нажмите Ctrl-j после Lisp'овой формы.
+  6. Emacs'овый буфер =*scratch*= находится в режиме исполнения
+     Lisp'ового кода. Нажмите Ctrl-j после Lisp'овой формы.
 
   7. Выход: (exit) в Lisp'овом режиме.
 
@@ -158,7 +158,6 @@
                     (- x d)))
           #+END_EXAMPLE
         #+END_QUOTE
-
         Попробуйте: =(values)=
 
       - Упражнение: Используя =discrim=, определите =(quad-roots a b c)=
@@ -170,7 +169,7 @@
 
         то есть, =(-b + sqrt(b2 - 4ac))/2a= и
         =(-b - sqrt(b2 - 4ac))/2a=
-         =(quad-roots 2 7 5)= должна возвращать =-1.0= и =-2.5=
+        =(quad-roots 2 7 5)= должна возвращать =-1.0= и =-2.5=
 
   11. Условное выполнение (две ветки)
 
@@ -206,17 +205,13 @@
       Когда курсор находится на названии функции нажмите =C-c t=, и
       для этой функции включится трассировка.
 
-      Try tracing =discrim= and =quad-root=.
-       Try tracing =fact= and/or =fibonacci=.
-       Try these with the functions both interpreted and compiled.
-
       Включите трассировку для функций =discrim= и =quad-root= и
       при их вызовах посмотрите, что будет. Затем выключите трассировку.
 
   13. Строковые символы
 
       - Строковые символы, как и числа, это "атомы, которые
-        вычисляются в себя". Их синтаксис =#\=/<имя символа>/. Попробуйте сами:
+        вычисляются в себя". Их синтаксис #/<имя символа>/. Попробуйте сами:
           
         #+BEGIN_QUOTE
           #+BEGIN_EXAMPLE
@@ -259,8 +254,6 @@
               (char-code #\greek_capital_letter_sigma)
           #+END_EXAMPLE
         #+END_QUOTE
-
-      - For character comparison, use =char==, =char<=, =char>=.
 
       - Для сравнения строковых символов используйте =char=, =char<=, =char>=.
 
@@ -337,7 +330,7 @@
         регистрах), которая не может быть числом.
          (Внимание: в некоторых старых реализациях Lisp'а,
         считыватель возводит в верхний регистр все строковые
-        символы, даже если были экранированы.)
+        символы, даже если они были экранированы.)
           
       - Экранирующий строковый символ: =\=
       - Экранирующие скобки: =| ... |=
@@ -349,7 +342,7 @@
         4. =symbol-package=
         5. =symbol-plist=
 
-      - Квотировние: ='expression= всегда вычисляется в
+      - Квотировние: '=expression= всегда вычисляется в
         =expression=, а не в значение символа =expression=
 
       - Загрузите ваш файл с исходным кодом функции =average=
@@ -366,19 +359,14 @@
             (function-lambda-expression #'average)
         #+END_EXAMPLE
 
-      - Put your cursor in your =*common-lisp*= buffer, and type
-        =C-x 1= to expand it.
-         Move your cursor over the symbol =average= in your
-        =*common-lisp*= buffer, and type =C-c .= (Really type the
-        dot.)
-
-      - Поместите ваш курсор в буфер и нажмите =C-x 1= 
+      - Поместите ваш курсор в буфер и нажмите =C-x 1=.
+        Перейдите на слово =average= нажмите C-c C-d C-d.
 
       - Функция для проверки равенства символов:
-        eql
+        =eql=
         Попробуйте сами.
 
-      - Как Lisp'овый считыватель откуда символ, который вы только
+      - Как Lisp'овый считыватель узнаёт откуда символ, который вы только
         что напечатали?
 
         1. Считывает все напечатанные строковые символы,
