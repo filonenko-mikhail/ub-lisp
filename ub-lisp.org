@@ -234,8 +234,7 @@
 
   - Создание строк:
 
-    #+BEGIN_QUOTE
-      #+BEGIN_EXAMPLE
+    #+BEGIN_EXAMPLE
           "вот строка"
           (char "вот строка" 0)
           (char "вот строка" 2)
@@ -247,26 +246,20 @@
           (string #\latin_small_letter_a_with_acute)
           (string-capitalize "дэвид.р.пирс")
           (string-trim "as" "sassafras")
-
       #+END_EXAMPLE
-    #+END_QUOTE
 
   - Сравнение строк:
 
-    #+BEGIN_QUOTE
       #+BEGIN_EXAMPLE
           (string= "дэвид пирс" "Дэвид Пирс")
           (string-equal "дэвид пирс" "Дэвид Пирс")
           (string< "Дэвид Пирс" "Стью Шапиро")
           (string/= "foobar" "foofoo")
-
       #+END_EXAMPLE
-    #+END_QUOTE
 
   - Строки как последовательности:
 
-    #+BEGIN_QUOTE
-      #+BEGIN_EXAMPLE
+    #+BEGIN_EXAMPLE
           (length "просто строка")
           (length "\\")
           (format t "~a" "\\")
@@ -282,8 +275,7 @@
             "d" (string #\latin_small_letter_a_with_grave)
             "v" (string #\latin_small_letter_i_with_acute)
             "d")
-      #+END_EXAMPLE
-    #+END_QUOTE
+    #+END_EXAMPLE
 
   - Упражнение: Определите =(string-1+ s)=, которая создаёт
     новую строку, прибавляя 1 к каждому коду символа старой
